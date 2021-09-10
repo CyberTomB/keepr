@@ -15,7 +15,6 @@ namespace keepr.Models
         public int Views {get; set;}
         public int Shares {get; set;}
         public int Keeps {get; set;}
-        [Required]
         public string CreatorId {get; set;}
         public Profile Creator { get; set;}
 

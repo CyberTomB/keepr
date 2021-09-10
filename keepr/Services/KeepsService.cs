@@ -37,7 +37,12 @@ namespace keepr.Services
       {
         throw new Exception("Invalid Access");
       }
-      // compare original to edit
+      // udpated edited fields
+      original.Name = editedKeep.Name.Length > 0 ? editedKeep.Name : original.Name;
+      original.Description = editedKeep.Description != null && editedKeep.Description.Length > 0 ? editedKeep.Description : original.Description;
+      original.ImgUrl = editedKeep.ImgUrl != null && editedKeep.ImgUrl.Length > 0 ? editedKeep.ImgUrl : original.ImgUrl;
+      return _repo.Edit(original);
+
     }
 
     internal Keep Delete(int keepId, string creatorId)

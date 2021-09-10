@@ -49,16 +49,30 @@ namespace keepr.Repositories
       return GetById(id);
     }
 
+        public Keep Edit(Keep updatedData)
+    {
+      string sql = @"
+      UPDATE keeps
+      SET
+        name = @Name,
+        description = @Description,
+        imgUrl = @ImgUrl,
+        views = @Views,
+        shares = @Shares,
+        keeps = @Keeps
+      WHERE id = @Id
+      ;";
+      _db.Execute(sql, updatedData);
+      return updatedData;
+    }
+
     public void Delete(int id)
     {
       string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1;";
       _db.Execute(sql, new { id });
     }
 
-    public Keep Edit(Keep updatedData)
-    {
-      throw new System.NotImplementedException();
-    }
+
 
   }
 }
