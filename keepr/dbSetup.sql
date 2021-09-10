@@ -17,5 +17,6 @@ CREATE TABLE IF NOT EXISTS keeps(
   imgUrl VARCHAR(511) COMMENT 'keep image URL',
   views INT DEFAULT 0 COMMENT 'number of page views',
   vaults INT DEFAULT 0 COMMENT 'number of vaults containing this keep',
-  shares INT DEFAULT 0 COMMENT 'number of times this has had a share link request'
+  shares INT DEFAULT 0 COMMENT 'number of times this has had a share link request',
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';

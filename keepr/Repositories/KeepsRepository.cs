@@ -22,11 +22,31 @@ namespace keepr.Repositories
 
     public Keep GetById(int id)
     {
-      throw new System.NotImplementedException();
+      string sql = @"
+      SELECT
+      a.*,
+      k.*
+      FROM keeps k
+      JOIN accounts a ON a.id = k.creatorId
+      WHERE k.id = @id;
+      ";
+      return _db.Query<Profile, Keep, Keep>(sql, (prof, keep) =>
+      {
+          keep.Creator = prof;
+          return keep;
+      }, new {id}, splitOn: "id").FirstOrDefault();
     }
     public Keep Create(Keep newData)
     {
-      throw new System.NotImplementedException();
+      string sql = @"
+      INSERT INTO keeps
+      (name, description, imgUrl, creatorId)
+      VALUES
+      (@Name, @Description, @ImgUrl, @CreatorId);
+      SELECT LAST_INSERT_ID();
+      ";
+      int id = _db.ExecuteScalar<int>(sql, newData);
+      return GetById(id);
     }
 
     public void Delete(int id)
