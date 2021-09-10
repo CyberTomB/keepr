@@ -33,7 +33,7 @@ namespace keepr.Services
     internal Keep Edit(Keep editedKeep)
     {
       Keep original = Get(editedKeep.Id);
-      if(original.CreatorId != editedKeep.CreatorId)
+      if(original.CreatorId != null && original.CreatorId != editedKeep.CreatorId)
       {
         throw new Exception("Invalid Access");
       }
