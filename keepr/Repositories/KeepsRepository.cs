@@ -51,7 +51,8 @@ namespace keepr.Repositories
 
     public void Delete(int id)
     {
-      throw new System.NotImplementedException();
+      string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1;";
+      _db.Execute(sql, new { id });
     }
 
     public Keep Edit(Keep updatedData)
