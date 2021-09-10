@@ -64,6 +64,24 @@ namespace keepr.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<ActionResult<Keep>> Edit(int id, [FromBody] Keep editedKeep)
+        {
+            try
+            {
+                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                 editedKeep.CreatorId = userInfo.Id;
+                 editedKeep.Id = id;
+                 Keep keep = _kservice.Edit(editedKeep);
+                 return Ok(keep);
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<ActionResult<Keep>> Delete(int id)

@@ -30,6 +30,15 @@ namespace keepr.Services
     {
       return _repo.Create(newKeep);
     }
+    internal Keep Edit(Keep editedKeep)
+    {
+      Keep original = Get(editedKeep.Id);
+      if(original.CreatorId != editedKeep.CreatorId)
+      {
+        throw new Exception("Invalid Access");
+      }
+      // compare original to edit
+    }
 
     internal Keep Delete(int keepId, string creatorId)
     {
@@ -41,5 +50,7 @@ namespace keepr.Services
       _repo.Delete(keepId);
       return keepToDelete;
     }
+
+    
   }
 }
