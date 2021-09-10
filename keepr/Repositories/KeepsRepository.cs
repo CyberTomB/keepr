@@ -40,9 +40,9 @@ namespace keepr.Repositories
     {
       string sql = @"
       INSERT INTO keeps
-      (name, description, imgUrl, creatorId)
+      (name, description, img, creatorId)
       VALUES
-      (@Name, @Description, @ImgUrl, @CreatorId);
+      (@Name, @Description, @Img, @CreatorId);
       SELECT LAST_INSERT_ID();
       ";
       int id = _db.ExecuteScalar<int>(sql, newData);
@@ -56,7 +56,7 @@ namespace keepr.Repositories
       SET
         name = @Name,
         description = @Description,
-        imgUrl = @ImgUrl,
+        img = @Img,
         views = @Views,
         shares = @Shares,
         keeps = @Keeps

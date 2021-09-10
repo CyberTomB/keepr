@@ -40,7 +40,7 @@ namespace keepr.Services
       // udpated edited fields
       original.Name = editedKeep.Name.Length > 0 ? editedKeep.Name : original.Name;
       original.Description = editedKeep.Description != null && editedKeep.Description.Length > 0 ? editedKeep.Description : original.Description;
-      original.ImgUrl = editedKeep.ImgUrl != null && editedKeep.ImgUrl.Length > 0 ? editedKeep.ImgUrl : original.ImgUrl;
+      original.Img = editedKeep.Img != null && editedKeep.Img.Length > 0 ? editedKeep.Img : original.Img;
       original.Views = editedKeep.Views != original.Views ? editedKeep.Views : original.Views;
       original.Keeps = editedKeep.Keeps != original.Keeps ? editedKeep.Keeps : original.Keeps;
       original.Shares = editedKeep.Shares != original.Shares ? editedKeep.Shares : original.Shares;
