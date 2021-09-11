@@ -11,7 +11,8 @@ namespace keepr.Models
         [Required]
         public string Name {get; set;}
         public string Description {get; set;}
-        public bool IsPrivate {get; set;} = false;
+        [Required]
+        public bool IsPrivate {get; set;}
         public string CreatorId {get; set;}
         public Profile Creator { get; set;}
     }

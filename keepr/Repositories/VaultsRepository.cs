@@ -58,16 +58,25 @@ namespace keepr.Repositories
       return GetById(id);
     }
 
-    public void Delete(int id)
-    {
-      throw new System.NotImplementedException();
-    }
 
     public Vault Edit(Vault updatedData)
     {
-      throw new System.NotImplementedException();
+      string sql = @"
+      UPDATE vaults
+      SET
+        name = @Name,
+        description = @Description,
+        isPrivate = @IsPrivate
+      WHERE id = @Id
+      ;";
+      _db.Execute(sql, updatedData);
+      return updatedData;
     }
-
+    public void Delete(int id)
+    {
+      string sql = "DELETE FROM vaults WHERE id = @id LIMIT 1;";
+        _db.Execute(sql, new { id });
+    }
     
   }
 }
