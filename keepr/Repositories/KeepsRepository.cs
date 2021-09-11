@@ -16,8 +16,17 @@ namespace keepr.Repositories
       }
     public List<Keep> GetAll()
     {
-      string sql = "SELECT * FROM keeps;";
-      return _db.Query<Keep>(sql).ToList();
+      string sql = @"
+      SELECT
+      k.*, 
+      a.* 
+      FROM keeps k
+      JOIN accounts a ON k.creatorId = a.id;";
+      return _db.Query<Keep, Profile, Keep>(sql, (keep, prof) =>
+      {
+        keep.Creator = prof;
+        return keep;
+      }, splitOn: "id").ToList();
     }
 
     public Keep GetById(int id)

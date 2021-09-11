@@ -32,6 +32,19 @@ namespace keepr.Controllers
                 return BadRequest(err.Message);
             }
         }
+        [HttpGet("{id}")]
+        public ActionResult<Vault> Get(int id)
+        {
+            try
+            {
+                 Vault vault = _vservice.Get(id);
+                 return Ok(vault);
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+        }
 
         [HttpPost]
         [Authorize]

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
@@ -14,6 +15,16 @@ namespace keepr.Services
     internal List<Vault> Get()
     {
       return _repo.GetAll();
+    }
+
+    internal Vault Get(int id)
+    {
+        Vault vault = _repo.GetById(id);
+        if(vault == null)
+        {
+            throw new Exception("Invalid ID");
+        }
+        return vault;
     }
 
     internal Vault Create(Vault newVault)
