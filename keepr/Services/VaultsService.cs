@@ -15,5 +15,10 @@ namespace keepr.Services
     {
       return _repo.GetAll();
     }
+
+    internal Vault Create(Vault newVault)
+    {
+      return _repo.Create(newVault);
+    }
   }
 }

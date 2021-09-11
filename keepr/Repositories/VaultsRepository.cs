@@ -22,11 +22,31 @@ namespace keepr.Repositories
 
     public Vault GetById(int id)
     {
-      throw new System.NotImplementedException();
+      string sql = @"
+      SELECT
+      a.*,
+      v.*
+      FROM vaults v
+      JOIN accounts a ON a.id = v.creatorId
+      WHERE v.id = @id;
+      ";
+      return _db.Query<Profile, Vault, Vault>(sql, (prof, vault) =>
+      {
+          vault.Creator = prof;
+          return vault;
+      }, new {id}, splitOn: "id").FirstOrDefault();
     }
     public Vault Create(Vault newData)
     {
-      throw new System.NotImplementedException();
+      string sql = @"
+      INSERT INTO vaults
+      (name, description, creatorId, isPrivate)
+      VALUES
+      (@Name, @Description, @CreatorId, @IsPrivate);
+      SELECT LAST_INSERT_ID();
+      ";
+      int id = _db.ExecuteScalar<int>(sql, newData);
+      return GetById(id);
     }
 
     public void Delete(int id)
