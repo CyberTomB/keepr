@@ -21,7 +21,8 @@ namespace keepr.Repositories
       v.*, 
       a.* 
       FROM vaults v
-      JOIN accounts a ON v.creatorId = a.id;";
+      JOIN accounts a ON v.creatorId = a.id
+      WHERE v.isPrivate = 0;";
       return _db.Query<Vault, Profile, Vault>(sql, (vault, prof) =>
       {
         vault.Creator = prof;

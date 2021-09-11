@@ -13,11 +13,17 @@ namespace keepr.Services
       {
           _repo = repo;
       }
-    internal List<Vault> Get()
+    internal List<Vault> Get(string userId)
     {
       List<Vault> vaults = _repo.GetAll();
-      List<Vault> publicVaults = vaults.Where(x => x.IsPrivate == false).ToList();
-      return publicVaults;
+      if(userId == "none")
+      {
+        return vaults.Where(x => x.IsPrivate == false).ToList();
+      }
+      else
+      {
+          return vaults.Where(x => x.IsPrivate == false || x.CreatorId == userId).ToList();
+      }
     }
 
     internal Vault Get(int id)

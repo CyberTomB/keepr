@@ -23,9 +23,13 @@ namespace keepr.Controllers
         public async Task<ActionResult<List<Vault>>> Get()
         {
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+            string userId = "none";
+            if(userInfo != null){
+                userId = userInfo.Id;
+            }
             try
             {
-                 List<Vault> vaults = _vservice.Get();
+                 List<Vault> vaults = _vservice.Get(userId);
                  return Ok(vaults);
             }
             catch (Exception err)
