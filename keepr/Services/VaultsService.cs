@@ -26,14 +26,18 @@ namespace keepr.Services
       }
     }
 
-    internal Vault Get(int id)
+    internal Vault Get(int id, string userId)
     {
         Vault vault = _repo.GetById(id);
         if(vault == null)
         {
             throw new Exception("Invalid ID");
         }
-        return vault;
+        if(vault.IsPrivate == false || vault.CreatorId == userId)
+        {
+            return vault;
+        }
+        throw new Exception("Invalid Access");
     }
 
     internal Vault Create(Vault newVault)
@@ -43,7 +47,7 @@ namespace keepr.Services
 
     internal Vault Edit(Vault editedVault)
     {
-      Vault original = Get(editedVault.Id);
+      Vault original = Get(editedVault.Id, editedVault.CreatorId);
       if(original.CreatorId != null && original.CreatorId != editedVault.CreatorId)
       {
           throw new Exception("Invalid Access");
@@ -57,7 +61,7 @@ namespace keepr.Services
 
     internal Vault Delete(int vaultId, string creatorId)
     {
-      Vault vaultToDelete = Get(vaultId);
+      Vault vaultToDelete = Get(vaultId, creatorId);
       if(vaultToDelete.CreatorId != creatorId)
       {
         throw new Exception("Invalid Access");
