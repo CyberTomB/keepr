@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -14,7 +15,9 @@ namespace keepr.Services
       }
     internal List<Vault> Get()
     {
-      return _repo.GetAll();
+      List<Vault> vaults = _repo.GetAll();
+      List<Vault> publicVaults = vaults.Where(x => x.IsPrivate == false).ToList();
+      return publicVaults;
     }
 
     internal Vault Get(int id)

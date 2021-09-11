@@ -20,8 +20,9 @@ namespace keepr.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Vault>> Get()
+        public async Task<ActionResult<List<Vault>>> Get()
         {
+            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
             try
             {
                  List<Vault> vaults = _vservice.Get();
@@ -32,9 +33,11 @@ namespace keepr.Controllers
                 return BadRequest(err.Message);
             }
         }
+
         [HttpGet("{id}")]
-        public ActionResult<Vault> Get(int id)
+        public async Task<ActionResult<Vault>> Get(int id)
         {
+            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
             try
             {
                  Vault vault = _vservice.Get(id);
