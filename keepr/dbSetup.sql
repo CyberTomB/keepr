@@ -20,3 +20,14 @@ CREATE TABLE IF NOT EXISTS keeps(
   shares INT DEFAULT 0 COMMENT 'number of times this has had a share link request',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+
+CREATE TABLE IF NOT EXISTS vaults(
+  id INT AUTO_INCREMENT primary key COMMENT 'primary key',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  creatorId VARCHAR(255) NOT NULL COMMENT 'Account ID for Creator',
+  name VARCHAR(255) NOT NULL COMMENT 'Vault Name',
+  description VARCHAR(511) COMMENT 'Vault Description',
+  isPrivate TINYINT NOT NULL COMMENT 'Privacy Bool',
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
