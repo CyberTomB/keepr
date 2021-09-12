@@ -1,10 +1,13 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
 using Dapper;
+using keepr.Interfaces;
 using keepr.Models;
 
 namespace keepr.Repositories
 {
-  public class VaultKeepsRepository
+  public class VaultKeepsRepository : IRepo<VaultKeep, int>
   {
       private readonly IDbConnection _db;
 
@@ -12,7 +15,21 @@ namespace keepr.Repositories
       {
           _db = db;
       }
-    internal VaultKeep Create(VaultKeep newVK)
+
+    public List<VaultKeep> GetAll()
+    {
+      throw new NotImplementedException();
+    }
+
+    public VaultKeep GetById(int id)
+    {
+      string sql = @"
+        SELECT * FROM vaultKeeps
+        WHERE id = @id;
+        ";
+        return _db.QueryFirstOrDefault<VaultKeep>(sql, new { id });
+    }
+    public VaultKeep Create(VaultKeep newData)
     {
       string sql = @"
       INSERT INTO vaultKeeps 
@@ -20,17 +37,18 @@ namespace keepr.Repositories
       VALUES (@CreatorId, @VaultId, @KeepId); 
       SELECT LAST_INSERT_ID();
       ";
-      int id = _db.ExecuteScalar<int>(sql, newVK);
+      int id = _db.ExecuteScalar<int>(sql, newData);
       return GetById(id);
     }
 
-    private VaultKeep GetById(int id)
+    public void Delete(int id)
     {
-        string sql = @"
-        SELECT * FROM vaultKeeps
-        WHERE id = @id;
-        ";
-        return _db.QueryFirstOrDefault<VaultKeep>(sql, new { id });
+      throw new NotImplementedException();
+    }
+
+    public VaultKeep Edit(VaultKeep updatedData)
+    {
+      throw new NotImplementedException();
     }
   }
 }

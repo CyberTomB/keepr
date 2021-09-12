@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using keepr.Models;
@@ -10,7 +11,6 @@ namespace keepr.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
-    [Authorize]
     public class VaultKeepsController : ControllerBase
     {
         private readonly VaultKeepsService _vks;
@@ -19,7 +19,23 @@ namespace keepr.Controllers
             _vks = vks;
         }
 
+        [HttpGet]
+        public ActionResult<List<VaultKeep>> Get()
+        {
+            try
+            {
+                List<VaultKeep> vaultKeeps = _vks.Get();
+                return Ok(vaultKeeps);
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+        }
+
+
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<VaultKeep>> Create ([FromBody] VaultKeep newVK)
         {
             try
