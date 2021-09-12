@@ -31,3 +31,13 @@ CREATE TABLE IF NOT EXISTS vaults(
   isPrivate TINYINT NOT NULL COMMENT 'Privacy Bool',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+
+CREATE TABLE IF NOT EXISTS vaultKeeps(
+  id INT AUTO_INCREMENT primary key COMMENT 'primary key',
+  vaultId int NOT NULL comment 'Vault ID',
+  keepId int NOT NULL comment 'Keep ID',
+  creatorId VARCHAR(255) NOT NULL COMMENT 'Account ID for Creator',
+  FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
+  FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE,
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+) DEFAULT charset utf8 comment '';
