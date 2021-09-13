@@ -30,6 +30,23 @@ namespace keepr.Repositories
       }, splitOn: "id").ToList();
     }
 
+    public List<Vault> GetAll(string id)
+    {
+      string sql = @"
+      SELECT
+      v.*, 
+      a.* 
+      FROM vaults v
+      JOIN accounts a ON v.creatorId = a.id
+      WHERE v.creatorId = @id;
+      ";
+      return _db.Query<Vault, Profile, Vault>(sql, (vault, prof) =>
+      {
+        vault.Creator = prof;
+        return vault;
+      }, new { id }, splitOn: "id").ToList<Vault>();
+    }
+
     public Vault GetById(int id)
     {
       string sql = @"

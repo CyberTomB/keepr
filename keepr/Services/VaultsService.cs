@@ -45,6 +45,16 @@ namespace keepr.Services
       return _repo.Create(newVault);
     }
 
+    internal List<Vault> GetVaultsByCreator(string id, bool allowPrivate = false)
+    {
+      List<Vault> vaults = _repo.GetAll(id);
+      if(allowPrivate)
+      {
+        return vaults;
+      }
+      return vaults.Where(v => v.IsPrivate == false).ToList();
+    }
+
     internal Vault Edit(Vault editedVault)
     {
       Vault original = Get(editedVault.Id, editedVault.CreatorId);
