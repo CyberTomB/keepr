@@ -3,9 +3,34 @@
     Loading...
   </div>
   <div v-else class="container">
-    <div class="row">
-      <div class="col-12">
-        This is the profile page of {{ profile.name }}
+    <div class="row justify-content-start">
+      <div class="col-md-6">
+        <div class="row py-4 justify-content-between align-items-end">
+          <div class="col-4">
+            <img :src="profile.picture" alt="Profile Image" :title="profile.name">
+          </div>
+          <div class="col-7 d-flex flex-column justify-content-between">
+            <h1>{{ profile.name }}</h1>
+            <span>Vaults: {{ vaults.length }}</span>
+            <span>Keeps: {{ keeps.length }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row py-2">
+      <h1 class="col-12">
+        Vaults
+      </h1>
+      <div class="col-12 card-columns">
+        <VaultPreviewCard v-for="v in vaults" :key="v.id" :vault="v" />
+      </div>
+    </div>
+    <div class="row py-2">
+      <h1 class="col-12">
+        Keeps
+      </h1>
+      <div class="col-12 card-columns">
+        <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
       </div>
     </div>
   </div>
@@ -40,3 +65,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.card-columns {
+  column-count: 5;
+}
+</style>
