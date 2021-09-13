@@ -15,6 +15,16 @@ class KeepsService {
     }
   }
 
+  async getAllByProfile(id) {
+    try {
+      const res = await api.get(`/api/profiles/${id}/keeps`)
+      logger.log(res.data)
+      AppState.keeps = res.data
+    } catch (error) {
+      logger.error('Vaults', error)
+    }
+  }
+
   async getOne(id) {
     // const found = AppState.keeps.find(k => k.id === id)
     // if (found) {
