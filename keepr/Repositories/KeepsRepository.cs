@@ -54,6 +54,9 @@ namespace keepr.Repositories
       FROM keeps k
       JOIN accounts a ON a.id = k.creatorId
       WHERE k.id = @id;
+      UPDATE keeps
+      SET views = views + 1
+      WHERE id = @id;
       ";
       return _db.Query<Profile, Keep, Keep>(sql, (prof, keep) =>
       {
