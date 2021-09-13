@@ -43,7 +43,8 @@ namespace keepr.Repositories
 
     public void Delete(int id)
     {
-      throw new NotImplementedException();
+      string sql = "DELETE FROM vaultKeeps WHERE id = @id;";
+      _db.Execute(sql, new { id });
     }
 
     public VaultKeep Edit(VaultKeep updatedData)
