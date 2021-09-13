@@ -63,5 +63,10 @@ namespace keepr.Services
     {
       return _repo.GetKeepsByVaultId(id);
     }
+
+    internal List<Keep> GetKeepsByCreator(string id)
+    {
+      return _repo.GetAll(id);
+    }
   }
 }

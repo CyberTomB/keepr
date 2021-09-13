@@ -57,5 +57,19 @@ namespace keepr.Controllers
                 return BadRequest(err.Message);
             }
         }
+
+        [HttpGet("{id}/keeps")]
+        public ActionResult<List<Keep>> GetKeeps(string id)
+        {
+            try
+            {
+                 List<Keep> keeps = _kservice.GetKeepsByCreator(id);
+                 return Ok(keeps);
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+        }
     }
 }
