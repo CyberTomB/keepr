@@ -27,7 +27,7 @@ namespace keepr.Services
       VaultKeep vk = GetById(id);
       if(vk.CreatorId == accountId)
       {
-        _vkr.Delete(id);
+        _vkr.Delete(id, vk.KeepId);
         return "Successfully Deleted";
       }
       throw new Exception("Invalid Access");

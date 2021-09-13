@@ -32,6 +32,9 @@ namespace keepr.Repositories
     public VaultKeep Create(VaultKeep newData)
     {
       string sql = @"
+      UPDATE keeps
+      SET keeps = keeps + 1
+      WHERE id = @KeepId;
       INSERT INTO vaultKeeps 
       (creatorId, vaultId, keepId) 
       VALUES (@CreatorId, @VaultId, @KeepId); 
@@ -41,13 +44,21 @@ namespace keepr.Repositories
       return GetById(id);
     }
 
-    public void Delete(int id)
+    public void Delete(int id, int keepId)
     {
-      string sql = "DELETE FROM vaultKeeps WHERE id = @id;";
-      _db.Execute(sql, new { id });
+      string sql = @"
+      UPDATE keeps SET keeps = keeps -1
+      WHERE id = @keepId;
+      DELETE FROM vaultKeeps WHERE id = @id;";
+      _db.Execute(sql, new { id, keepId });
     }
 
     public VaultKeep Edit(VaultKeep updatedData)
+    {
+      throw new NotImplementedException();
+    }
+
+    public void Delete(int id)
     {
       throw new NotImplementedException();
     }
