@@ -8,6 +8,8 @@ class KeepsService {
       const res = await api.get('/api/keeps')
       logger.log(res.data)
       AppState.keeps = res.data
+      // To satisfy v-if statement on keep cards
+      AppState.activeKeep = res.data[0]
     } catch (err) {
       logger.error('Keeps Service GetAll', err)
     }
