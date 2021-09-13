@@ -14,10 +14,10 @@ class KeepsService {
   }
 
   async getOne(id) {
-    const found = AppState.keeps.find(k => k.id === id)
-    if (found) {
-      AppState.activeKeep = found
-    }
+    // const found = AppState.keeps.find(k => k.id === id)
+    // if (found) {
+    //   AppState.activeKeep = found
+    // }
     try {
       const res = await api.get('/api/keeps/' + id)
       logger.log(res.data)
