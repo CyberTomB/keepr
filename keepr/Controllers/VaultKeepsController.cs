@@ -14,9 +14,11 @@ namespace keepr.Controllers
     public class VaultKeepsController : ControllerBase
     {
         private readonly VaultKeepsService _vks;
-        public VaultKeepsController(VaultKeepsService vks)
+        private readonly VaultsService _vservice;
+        public VaultKeepsController(VaultKeepsService vks, VaultsService vservice)
         {
             _vks = vks;
+            _vservice = vservice;
         }
 
         [HttpGet]
@@ -42,8 +44,13 @@ namespace keepr.Controllers
             {
                  Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                  newVK.CreatorId = userInfo.Id;
+                 Vault vault = _vservice.Get(newVK.VaultId, userInfo.Id);
+                if(vault.CreatorId == userInfo.Id)
+                {
                  VaultKeep vk = _vks.Create(newVK);
                  return Ok(vk);
+                }
+                return BadRequest("Invalid Authorization");
             }
             catch (Exception err)
             {
