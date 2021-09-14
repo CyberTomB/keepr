@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: Fix the "v=if" statement that trips the modal up -->
   <div class="modal fade" :id="`keepModal${keep.id}`" aria-labelledby="keepModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -41,7 +42,7 @@
                     </button> -->
                     <div class="action">
                       Add to Vault:
-                      <select v-model="state.selected" @change="addToVault">
+                      <select v-model="state.vaultId" @change="addToVault">
                         <option v-for="v in yourVaults" :key="v.id" :value="v.id">
                           {{ v.name }}
                         </option>
@@ -73,6 +74,7 @@ import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
+import { keepsService } from '../services/KeepsService'
 export default {
   props: {
     keep: {
@@ -82,7 +84,7 @@ export default {
   },
   setup(props) {
     const state = reactive({
-      selected: 0
+      vaultId: 0
     })
     return {
       state,
@@ -91,10 +93,16 @@ export default {
       creatorMatch: computed(() => {
         return AppState.activeKeep.creator.id === AppState.user.id
       }),
-      addToVault() {
+      async addToVault() {
         // TODO: write function
-        logger.log('Placeholder Test', state.selected)
-        // Pop.toast('Added', 'success')
+        logger.log('Placeholder Test', state.vaultId)
+        try {
+          await keepsService.addToVault(state.vaultId, props.keep.id)
+          Pop.toast('Added to Vault', 'success')
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error, 'error')
+        }
       },
       closeModal(modalId) {
         // eslint-disable-next-line no-undef

@@ -48,6 +48,20 @@ class KeepsService {
       logger.error('Keeps Service GetOne', err)
     }
   }
+
+  async addToVault(vaultId, keepId) {
+    try {
+      const newVK = {
+        CreatorId: AppState.account.id,
+        VaultId: vaultId,
+        KeepId: keepId
+      }
+      const res = await api.post('/api/vaultkeeps', newVK)
+      logger.log(res.data)
+    } catch (error) {
+      logger.error('Keeps Add Vault', error)
+    }
+  }
 }
 
 export const keepsService = new KeepsService()
