@@ -40,7 +40,7 @@
                     <!-- <button type="button" class="btn btn-success" @click="addToKeep">
                       Add <span class="mdi mdi-arrow-right-drop-circle" />
                     </button> -->
-                    <div class="action">
+                    <div class="action" v-show="yourVaults.length > 0">
                       Add to Vault:
                       <select v-model="state.vaultId" @change="addToVault">
                         <option v-for="v in yourVaults" :key="v.id" :value="v.id">
@@ -54,7 +54,7 @@
                   </div>
                   <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-md-4 action" @click="closeModal">
                     <div class="row align-items-end">
-                      <img :src="activeKeep.creator.picture" class="img-fluid rounded col-6" alt="">
+                      <img :src="activeKeep.creator.picture" class="profile-img col-6" alt="">
                       <span class="text-truncate col-6">{{ activeKeep.creator.name }}</span>
                     </div>
                   </router-link>
@@ -127,3 +127,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.profile-img{
+    border-radius: 50%;
+  object-fit: cover;
+  max-width: 10vh;
+  max-height: 10vh;
+}
+</style>
