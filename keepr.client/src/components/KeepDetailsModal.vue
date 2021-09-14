@@ -36,9 +36,17 @@
                 <!-- Bottom buttons -->
                 <div class="row justify-content-around align-items-end">
                   <div class="col-6">
-                    <button type="button" class="btn btn-success" @click="addToKeep">
+                    <!-- <button type="button" class="btn btn-success" @click="addToKeep">
                       Add <span class="mdi mdi-arrow-right-drop-circle" />
-                    </button>
+                    </button> -->
+                    <div class="action">
+                      Add to Vault:
+                      <select v-model="state.selected" @change="addToVault">
+                        <option v-for="v in yourVaults" :key="v.id" :value="v.id">
+                          {{ v.name }}
+                        </option>
+                      </select>
+                    </div>
                   </div>
                   <div class="col-2">
                     <i class="mdi mdi-delete action" title="Delete Keep" v-show="creatorMatch"></i>
@@ -60,7 +68,7 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
@@ -73,12 +81,17 @@ export default {
     }
   },
   setup(props) {
+    const state = reactive({
+      selected: 0
+    })
     return {
+      state,
       activeKeep: computed(() => AppState.activeKeep),
+      yourVaults: computed(() => AppState.yourVaults),
       creatorMatch: computed(() => {
         return AppState.activeKeep.creator.id === AppState.user.id
       }),
-      addToKeep() {
+      addToVault() {
         // TODO: write function
         logger.log('Placeholder Test')
         // Pop.toast('Added', 'success')
