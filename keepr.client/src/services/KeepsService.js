@@ -31,7 +31,7 @@ class KeepsService {
       logger.log(res.data)
       AppState.keeps = res.data
     } catch (error) {
-      logger.error('Keeps', error)
+      logger.error('Vaults', error)
     }
   }
 

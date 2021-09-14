@@ -20,19 +20,24 @@
 <script>
 import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { keepsService } from '../services/KeepsService'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { AppState } from '../AppState'
 import { vaultsService } from '../services/VaultsService'
 import { logger } from '../utils/Logger'
 export default {
   setup() {
+    const router = useRouter()
     const state = reactive({
       loading: false
     })
     const route = useRoute()
     onMounted(async() => {
       state.loading = true
-      await vaultsService.getOne(route.params.id)
+      const access = await vaultsService.getOne(route.params.id)
+      if (!access) {
+        logger.log('access:', access)
+        router.push({ name: 'Home' })
+      }
       await keepsService.getAllByVault(route.params.id)
       state.loading = false
     })

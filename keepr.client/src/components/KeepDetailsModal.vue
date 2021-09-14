@@ -35,7 +35,7 @@
                 </div>
                 <!-- Bottom buttons -->
                 <div class="row justify-content-around align-items-end">
-                  <div class="col-6">
+                  <div class="col-md-6">
                     <!-- <button type="button" class="btn btn-success" @click="addToKeep">
                       Add <span class="mdi mdi-arrow-right-drop-circle" />
                     </button> -->
@@ -48,10 +48,10 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-2">
+                  <div class="col-md-2">
                     <i class="mdi mdi-delete action" title="Delete Keep" v-show="creatorMatch"></i>
                   </div>
-                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-4 action" @click="closeModal(`#keepModal${keep.id}`)">
+                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-md-4 action" @click="closeModal(`#keepModal${keep.id}`)">
                     <div class="row align-items-end">
                       <img :src="keep.creator.picture" class="img-fluid rounded col-6" alt="">
                       <span class="text-truncate col-6">{{ keep.creator.name }}</span>
@@ -93,7 +93,7 @@ export default {
       }),
       addToVault() {
         // TODO: write function
-        logger.log('Placeholder Test')
+        logger.log('Placeholder Test', state.selected)
         // Pop.toast('Added', 'success')
       },
       closeModal(modalId) {

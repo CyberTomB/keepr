@@ -18,12 +18,16 @@ class VaultsService {
   }
 
   async getOne(id) {
+    let access = true
     try {
       const res = await api.get('/api/vaults/' + id)
       logger.log(res.data)
       AppState.activeVault = res.data
+      return access
     } catch (error) {
       logger.error('Vaults', error)
+      access = false
+      return access
     }
   }
 }
