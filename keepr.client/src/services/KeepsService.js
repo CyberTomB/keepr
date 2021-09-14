@@ -76,6 +76,16 @@ class KeepsService {
     }
   }
 
+  async create(keep) {
+    try {
+      const res = await api.post('api/keeps/', keep)
+      logger.log(res.data)
+      AppState.keeps.unshift(res.data)
+    } catch (error) {
+      Pop.toast(error, 'error')
+    }
+  }
+
   async delete(id) {
     try {
       const res = await api.delete('/api/keeps/' + id)

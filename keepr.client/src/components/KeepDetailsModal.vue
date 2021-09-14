@@ -95,9 +95,10 @@ export default {
       }),
       async deleteKeep() {
         try {
-          await Pop.confirm('Are you sure about that?')
-          await keepsService.delete(props.keep.id)
-          this.closeModal(`#keepModal${props.keep.id}`)
+          if (await Pop.confirm('Are you sure about that?')) {
+            await keepsService.delete(props.keep.id)
+            this.closeModal(`#keepModal${props.keep.id}`)
+          }
         } catch (error) {
           Pop.toast(error, 'error')
         }

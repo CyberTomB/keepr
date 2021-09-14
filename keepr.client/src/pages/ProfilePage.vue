@@ -3,6 +3,7 @@
     Loading...
   </div>
   <div v-else class="container">
+    <CreateModal />
     <div class="row justify-content-start">
       <div class="col-md-6">
         <div class="row py-4 justify-content-between align-items-end">
@@ -19,7 +20,7 @@
     </div>
     <div class="row py-2">
       <h1 class="col-12">
-        Vaults
+        Vaults <span class="mdi mdi-plus-circle-outline text-success"></span>
       </h1>
       <div class="col-12 card-columns">
         <VaultPreviewCard v-for="v in vaults" :key="v.id" :vault="v" />
@@ -27,7 +28,7 @@
     </div>
     <div class="row py-2">
       <h1 class="col-12">
-        Keeps
+        Keeps <span class="mdi mdi-plus-circle-outline text-success" @click="getModal"></span>
       </h1>
       <div class="col-12 card-columns">
         <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
@@ -43,6 +44,7 @@ import { vaultsService } from '../services/VaultsService'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
+import $ from 'jquery'
 export default {
   setup() {
     const state = reactive({
@@ -60,7 +62,10 @@ export default {
       state,
       profile: computed(() => AppState.profile),
       vaults: computed(() => AppState.vaults),
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
+      getModal() {
+        $('#createKeep').modal('toggle')
+      }
     }
   }
 }
