@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade"
-       id="createKeep"
+       id="createVault"
        tabindex="-1"
        role="dialog"
        aria-labelledby="Create Keep"
@@ -17,7 +17,7 @@
           </button>
         </div>
         <!-- REGION FORM -->
-        <form @submit.prevent="createKeep">
+        <form @submit.prevent="createVault">
           <div class="modal-body">
             <div class="form-group">
               <label for="keep-name">Name:</label>
@@ -27,18 +27,7 @@
                      maxlength="80"
                      placeholder="New keep"
                      class="form-control"
-                     v-model="state.keep.name"
-                     required
-              >
-            </div>
-            <div class="form-group">
-              <label for="keep-img">Image URL:</label>
-              <input type="text"
-                     name="keep-img"
-                     id="keep-img"
-                     placeholder="http//www.newimage.com"
-                     class="form-control"
-                     v-model="state.keep.img"
+                     v-model="state.vault.name"
                      required
               >
             </div>
@@ -49,9 +38,13 @@
                         minlength="3"
                         placeholder="Tell us about it..."
                         class="form-control"
-                        v-model="state.keep.description"
+                        v-model="state.vault.description"
               >
               </textarea>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" v-model="state.vault.isPrivate" id="isPrivate">
+              <label for="isPrivate" class="form-check-label">Private?</label>
             </div>
           </div>
           <div class="modal-footer">
@@ -59,10 +52,11 @@
               Close
             </button>
             <button type="submit" class="btn btn-primary">
-              Create Keep
+              Create Vault
             </button>
           </div>
         </form>
+        <!-- END REGION -->
       </div>
     </div>
   </div>
@@ -70,31 +64,36 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
+import { vaultsService } from '../services/VaultsService'
 export default {
   setup() {
     const state = reactive({
-      keep: {
+      vault: {
         name: '',
-        img: '',
-        description: ''
+        description: '',
+        isPrivate: false
       }
     })
     return {
       state,
-      async createKeep() {
+      async createVault() {
         try {
-          await keepsService.create(state.keep)
-          Pop.toast('Created Keep', 'success')
+          await vaultsService.create(state.vault)
+          Pop.toast('Created Vault', 'success')
+          state.vault = {
+            name: '',
+            description: '',
+            isPrivate: false
+          }
         } catch (error) {
           Pop.toast(error, 'error')
         }
         this.closeModal()
       },
       closeModal() {
-        $('#createKeep').modal('hide')
+        $('#createVault').modal('hide')
         $('body').removeClass('modal-open')
         $('.modal-backdrop').remove()
       }

@@ -1,5 +1,6 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
+import Pop from '../utils/Notifier'
 import { api } from './AxiosService'
 
 class VaultsService {
@@ -28,6 +29,18 @@ class VaultsService {
       logger.error('Vaults', error)
       access = false
       return access
+    }
+  }
+
+  async create(vault) {
+    try {
+      const res = await api.post('/api/vaults', vault)
+      logger.log(res.data)
+      // REVIEW: Why is this showing up twice on Profile Page?
+      // AppState.vaults.push(res.data)
+      AppState.yourVaults.push(res.data)
+    } catch (error) {
+      Pop.toast(error, 'error')
     }
   }
 }

@@ -80,7 +80,7 @@ class KeepsService {
     try {
       const res = await api.post('api/keeps/', keep)
       logger.log(res.data)
-      AppState.keeps.unshift(res.data)
+      AppState.keeps.push(res.data)
     } catch (error) {
       Pop.toast(error, 'error')
     }
