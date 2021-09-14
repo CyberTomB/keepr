@@ -21,7 +21,17 @@ class KeepsService {
       logger.log(res.data)
       AppState.keeps = res.data
     } catch (error) {
-      logger.error('Vaults', error)
+      logger.error('Keeps', error)
+    }
+  }
+
+  async getAllByVault(id) {
+    try {
+      const res = await api.get(`/api/vaults/${id}/keeps`)
+      logger.log(res.data)
+      AppState.keeps = res.data
+    } catch (error) {
+      logger.error('Keeps', error)
     }
   }
 

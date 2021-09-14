@@ -12,6 +12,16 @@ class VaultsService {
       logger.error('Vaults', error)
     }
   }
+
+  async getOne(id) {
+    try {
+      const res = await api.get('/api/vaults/' + id)
+      logger.log(res.data)
+      AppState.activeVault = res.data
+    } catch (error) {
+      logger.error('Vaults', error)
+    }
+  }
 }
 
 export const vaultsService = new VaultsService()

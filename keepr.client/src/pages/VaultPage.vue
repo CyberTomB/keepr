@@ -1,3 +1,46 @@
 <template>
-  <h1>This is the vault page.</h1>
+  <div class="container">
+    <div class="row" v-if="state.loading">
+      <h1>Loading...</h1>
+    </div>
+    <div class="row" v-else>
+      <h1 class="col-12">
+        {{ vault.name }}
+      </h1>
+      <div class="col-12 card-columns" v-if="keeps.length > 0">
+        <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+      </div>
+      <div class="col-12" v-else>
+        <h4>There is no Keeps</h4>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { keepsService } from '../services/KeepsService'
+import { useRoute } from 'vue-router'
+import { AppState } from '../AppState'
+import { vaultsService } from '../services/VaultsService'
+import { logger } from '../utils/Logger'
+export default {
+  setup() {
+    const state = reactive({
+      loading: false
+    })
+    const route = useRoute()
+    onMounted(async() => {
+      state.loading = true
+      await vaultsService.getOne(route.params.id)
+      await keepsService.getAllByVault(route.params.id)
+      state.loading = false
+    })
+    return {
+      state,
+      keeps: computed(() => AppState.keeps),
+      vault: computed(() => AppState.activeVault)
+    }
+  }
+}
+</script>

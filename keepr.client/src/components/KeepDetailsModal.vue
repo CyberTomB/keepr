@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" :id="`keepModal${keep.id}`" tabindex="-1" aria-labelledby="keepModalLabel" aria-hidden="true">
+  <div class="modal fade" :id="`keepModal${keep.id}`" aria-labelledby="keepModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-body">
@@ -43,7 +43,7 @@
                   <div class="col-2">
                     <i class="mdi mdi-delete action" title="Delete Keep" v-show="creatorMatch"></i>
                   </div>
-                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-4 action" @click="closeModal">
+                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-4 action" @click="closeModal(`#keepModal${keep.id}`)">
                     <div class="row align-items-end">
                       <img :src="keep.creator.picture" class="img-fluid rounded col-6" alt="">
                       <span class="text-truncate col-6">{{ keep.creator.name }}</span>
@@ -83,9 +83,9 @@ export default {
         logger.log('Placeholder Test')
         // Pop.toast('Added', 'success')
       },
-      closeModal() {
+      closeModal(modalId) {
         // eslint-disable-next-line no-undef
-        $('#createBugReport').modal('hide')
+        $(modalId).modal('hide')
         // eslint-disable-next-line no-undef
         $('body').removeClass('modal-open')
         // eslint-disable-next-line no-undef
