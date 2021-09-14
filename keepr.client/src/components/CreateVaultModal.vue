@@ -3,14 +3,14 @@
        id="createVault"
        tabindex="-1"
        role="dialog"
-       aria-labelledby="Create Keep"
+       aria-labelledby="Create vault"
        aria-hidden="true"
   >
     <div class="modal-dialog" role="form">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            Create Keep
+            Create Vault
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
             <span aria-hidden="true">&times;</span>
@@ -20,21 +20,21 @@
         <form @submit.prevent="createVault">
           <div class="modal-body">
             <div class="form-group">
-              <label for="keep-name">Name:</label>
+              <label for="vault-name">Name:</label>
               <input type="text"
-                     name="keep-name"
-                     id="keep-name"
+                     name="vault-name"
+                     id="vault-name"
                      maxlength="80"
-                     placeholder="New keep"
+                     placeholder="New vault"
                      class="form-control"
                      v-model="state.vault.name"
                      required
               >
             </div>
             <div class="form-group">
-              <label for="keep-description">Description:</label>
-              <textarea name="keep-description"
-                        id="keep-description"
+              <label for="vault-description">Description:</label>
+              <textarea name="vault-description"
+                        id="vault-description"
                         minlength="3"
                         placeholder="Tell us about it..."
                         class="form-control"

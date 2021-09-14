@@ -2,9 +2,9 @@
   <KeepDetailsModal :keep="keep" />
   <div class="keep-card card my-2 shadow selectable">
     <img class="keep-img img-fluid action rounded" @click="getModal(keep.id)" :src="keep.img" alt="image">
-    <h4 class="keep-name text-light px-3 py-2">
+    <span class="keep-name f-16 text-light px-3 py-2">
       {{ keep.name }}
-    </h4>
+    </span>
     <img class="keep-creator-img img-fluid" :src="keep.creator.picture" :alt="keep.creator.name">
     <i class="mdi mdi-sticker-remove action" v-if="vaultView" title="Remove From Vault" @click.stop="removeFromVault(keep.vaultKeepId)"></i>
   </div>

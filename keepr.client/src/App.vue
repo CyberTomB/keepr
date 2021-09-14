@@ -29,4 +29,12 @@ export default {
 .action{
   cursor: pointer;
 }
+
+a {
+  color: var(--dark);
+
+  &:hover{
+    color: var(--info);
+  }
+}
 </style>
