@@ -50,7 +50,7 @@
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <i class="mdi mdi-delete action" title="Delete Keep" v-show="creatorMatch" @click="deleteKeep"></i>
+                    <DeleteBtn v-show="creatorMatch" @delete="deleteKeep" />
                   </div>
                   <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-md-4 action" @click="closeModal(`#keepModal${keep.id}`)">
                     <div class="row align-items-end">
@@ -72,9 +72,9 @@
 import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
-import $ from 'jquery'
 import Pop from '../utils/Notifier'
 import { keepsService } from '../services/KeepsService'
+import { modalHandler } from '../utils/ModalHandler'
 export default {
   props: {
     keep: {
@@ -97,7 +97,7 @@ export default {
         try {
           if (await Pop.confirm('Are you sure about that?')) {
             await keepsService.delete(props.keep.id)
-            this.closeModal(`#keepModal${props.keep.id}`)
+            modalHandler.close(`#keepModal${props.keep.id}`)
           }
         } catch (error) {
           Pop.toast(error, 'error')
@@ -116,14 +116,6 @@ export default {
           logger.error(error)
           Pop.toast(error, 'error')
         }
-      },
-      closeModal(modalId) {
-        // eslint-disable-next-line no-undef
-        $(modalId).modal('hide')
-        // eslint-disable-next-line no-undef
-        $('body').removeClass('modal-open')
-        // eslint-disable-next-line no-undef
-        $('.modal-backdrop').remove()
       }
     }
   }

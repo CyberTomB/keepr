@@ -1,5 +1,5 @@
 <template>
-  <KeepDetailsModal :keep="keep" v-if="activeKeep" />
+  <KeepDetailsModal :keep="keep" />
   <div class="card my-1 shadow" @click="getModal(keep.id)">
     <div class="card-body">
       <img :src="keep.img" alt="image" class="img-fluid">
