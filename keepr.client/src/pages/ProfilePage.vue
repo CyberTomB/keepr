@@ -21,7 +21,7 @@
     </div>
     <div class="row py-2">
       <h1 class="col-12">
-        Vaults <span class="mdi mdi-plus-circle-outline text-success" @click="getModal('#createVault')"></span>
+        Vaults <span class="mdi mdi-plus-circle-outline text-success action" v-if="showCreateButtons" @click="getModal('#createVault')" title="Create Vault"></span>
       </h1>
       <div class="col-12 card-columns">
         <VaultPreviewCard v-for="v in vaults" :key="v.id" :vault="v" />
@@ -29,7 +29,7 @@
     </div>
     <div class="row py-2">
       <h1 class="col-12">
-        Keeps <span class="mdi mdi-plus-circle-outline text-success" @click="getModal('#createKeep')"></span>
+        Keeps <span class="mdi mdi-plus-circle-outline text-success action" v-if="showCreateButtons" title="Create Keep" @click="getModal('#createKeep')"></span>
       </h1>
       <div class="col-12 card-columns">
         <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
@@ -66,7 +66,10 @@ export default {
       keeps: computed(() => AppState.keeps),
       getModal(target) {
         $(target).modal('toggle')
-      }
+      },
+      showCreateButtons: computed(() => {
+        return AppState.account.id === route.params.id
+      })
     }
   }
 }

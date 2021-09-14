@@ -8,7 +8,7 @@
         {{ vault.name }} <span v-if="creatorMatch" class="mdi mdi-delete action text-danger" title="Delete Vault" @click="deleteVault"></span>
       </h1>
       <div class="col-12 card-columns" v-if="keeps.length > 0">
-        <KeepCard v-for="k in keeps" :key="k.id" :keep="k" :vault-view="true" />
+        <KeepCard v-for="k in keeps" :key="k.id" :keep="k" :vault-view="creatorMatch" />
       </div>
       <div class="col-12" v-else>
         <h4>There is no Keeps</h4>
