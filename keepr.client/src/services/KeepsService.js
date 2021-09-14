@@ -58,8 +58,10 @@ class KeepsService {
       }
       const res = await api.post('/api/vaultkeeps', newVK)
       logger.log(res.data)
+      return true
     } catch (error) {
       logger.error('Keeps Add Vault', error)
+      return false
     }
   }
 }

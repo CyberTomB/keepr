@@ -97,8 +97,11 @@ export default {
         // TODO: write function
         logger.log('Placeholder Test', state.vaultId)
         try {
-          await keepsService.addToVault(state.vaultId, props.keep.id)
-          Pop.toast('Added to Vault', 'success')
+          const added = await keepsService.addToVault(state.vaultId, props.keep.id)
+          logger.log(added)
+          if (added) {
+            await Pop.toast('Added to Vault', 'success')
+          } else { Pop.toast('Something went wrong', 'error') }
         } catch (error) {
           logger.error(error)
           Pop.toast(error, 'error')
