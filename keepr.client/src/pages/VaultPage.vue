@@ -5,7 +5,7 @@
     </div>
     <div class="row" v-else>
       <h1 class="col-12">
-        {{ vault.name }}
+        {{ vault.name }} <span v-if="creatorMatch" class="mdi mdi-delete action text-danger" title="Delete Vault" @click="deleteVault"></span>
       </h1>
       <div class="col-12 card-columns" v-if="keeps.length > 0">
         <KeepCard v-for="k in keeps" :key="k.id" :keep="k" :vault-view="true" />
@@ -24,6 +24,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { AppState } from '../AppState'
 import { vaultsService } from '../services/VaultsService'
 import { logger } from '../utils/Logger'
+import Pop from '../utils/Notifier'
 export default {
   setup() {
     const router = useRouter()
@@ -44,7 +45,20 @@ export default {
     return {
       state,
       keeps: computed(() => AppState.keeps),
-      vault: computed(() => AppState.activeVault)
+      vault: computed(() => AppState.activeVault),
+      creatorMatch: computed(() => {
+        return AppState.account.id === AppState.activeVault.creatorId
+      }),
+      async deleteVault() {
+        try {
+          if (await Pop.confirm('Are you sure you want to delete this vault?')) {
+            await vaultsService.delete(route.params.id)
+            router.push({ name: 'Profile', params: { id: AppState.account.id } })
+          }
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      }
     }
   }
 }
