@@ -64,6 +64,16 @@ class KeepsService {
       return false
     }
   }
+
+  async removeFromVault(vkId) {
+    try {
+      const res = await api.delete('/api/vaultkeeps/' + vkId)
+      logger.log('remove keep:', res.data)
+      AppState.keeps = AppState.keeps.filter(k => k.vaultKeepId !== vkId)
+    } catch (error) {
+      logger.error('Keeps Remove Vault', error)
+    }
+  }
 }
 
 export const keepsService = new KeepsService()

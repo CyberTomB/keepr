@@ -4,6 +4,7 @@
     <div class="card-body">
       <img :src="keep.img" alt="image" class="img-fluid">
       <h4>{{ keep.name }}</h4>
+      <i class="mdi mdi-sticker-remove action" v-if="vaultView" title="Remove From Vault" @click.stop="removeFromVault(keep.vaultKeepId)"></i>
     </div>
   </div>
 </template>
@@ -14,11 +15,16 @@ import $ from 'jquery'
 import Pop from '../utils/Notifier'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 export default {
   props: {
     keep: {
       type: Object,
       required: true
+    },
+    vaultView: {
+      type: Boolean,
+      default: false
     }
   },
   setup() {
@@ -30,6 +36,13 @@ export default {
           await keepsService.getOne(id)
         } catch (error) {
           Pop.toast(error, 'error')
+        }
+      },
+      async removeFromVault(vkId) {
+        try {
+          await keepsService.removeFromVault(vkId)
+        } catch (error) {
+          logger.error(error)
         }
       }
     }

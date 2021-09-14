@@ -54,8 +54,8 @@
                   </div>
                   <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-md-4 action" @click="closeModal(`#keepModal${keep.id}`)">
                     <div class="row align-items-end">
-                      <img :src="keep.creator.picture" class="img-fluid rounded col-6" alt="">
-                      <span class="text-truncate col-6">{{ keep.creator.name }}</span>
+                      <img :src="activeKeep.creator.picture" class="img-fluid rounded col-6" alt="">
+                      <span class="text-truncate col-6">{{ activeKeep.creator.name }}</span>
                     </div>
                   </router-link>
                 </div>
@@ -91,7 +91,7 @@ export default {
       activeKeep: computed(() => AppState.activeKeep),
       yourVaults: computed(() => AppState.yourVaults),
       creatorMatch: computed(() => {
-        return AppState.activeKeep.creator.id === AppState.user.id
+        return AppState.activeKeep.creatorId === AppState.account.id
       }),
       async addToVault() {
         // TODO: write function

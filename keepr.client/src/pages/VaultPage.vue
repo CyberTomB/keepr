@@ -8,7 +8,7 @@
         {{ vault.name }}
       </h1>
       <div class="col-12 card-columns" v-if="keeps.length > 0">
-        <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+        <KeepCard v-for="k in keeps" :key="k.id" :keep="k" :vault-view="true" />
       </div>
       <div class="col-12" v-else>
         <h4>There is no Keeps</h4>
