@@ -52,7 +52,7 @@
                   <div class="col-md-2">
                     <DeleteBtn v-show="creatorMatch" @delete="deleteKeep" />
                   </div>
-                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-md-4 action" @click="closeModal(`#keepModal${keep.id}`)">
+                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-md-4 action" @click="closeModal">
                     <div class="row align-items-end">
                       <img :src="activeKeep.creator.picture" class="img-fluid rounded col-6" alt="">
                       <span class="text-truncate col-6">{{ activeKeep.creator.name }}</span>
@@ -88,7 +88,13 @@ export default {
     })
     return {
       state,
-      activeKeep: computed(() => AppState.activeKeep),
+      closeModal: modalHandler.close(`#keepModal${props.keep.id}`),
+      activeKeep: computed(() => {
+        if (AppState.activeKeep.id) {
+          return AppState.activeKeep
+        }
+        return props.keep
+      }),
       yourVaults: computed(() => AppState.yourVaults),
       creatorMatch: computed(() => {
         return AppState.activeKeep.creatorId === AppState.account.id

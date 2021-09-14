@@ -67,6 +67,7 @@ import { reactive } from '@vue/reactivity'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
 import { vaultsService } from '../services/VaultsService'
+import { modalHandler } from '../utils/ModalHandler'
 export default {
   setup() {
     const state = reactive({
@@ -78,6 +79,7 @@ export default {
     })
     return {
       state,
+      closeModal: modalHandler.close('#createVault'),
       async createVault() {
         try {
           await vaultsService.create(state.vault)
@@ -90,12 +92,7 @@ export default {
         } catch (error) {
           Pop.toast(error, 'error')
         }
-        this.closeModal()
-      },
-      closeModal() {
-        $('#createVault').modal('hide')
-        $('body').removeClass('modal-open')
-        $('.modal-backdrop').remove()
+        modalHandler.close('#createVault')
       }
     }
   }
