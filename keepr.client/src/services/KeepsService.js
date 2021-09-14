@@ -1,5 +1,6 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
+import Pop from '../utils/Notifier'
 import { api } from './AxiosService'
 
 class KeepsService {
@@ -72,6 +73,17 @@ class KeepsService {
       AppState.keeps = AppState.keeps.filter(k => k.vaultKeepId !== vkId)
     } catch (error) {
       logger.error('Keeps Remove Vault', error)
+    }
+  }
+
+  async delete(id) {
+    try {
+      const res = await api.delete('/api/keeps/' + id)
+      Pop.toast('Deleted', 'success')
+      logger.log('delete keep: ' + id, res.data)
+      AppState.keeps = AppState.keeps.filter(k => k.id !== id)
+    } catch (error) {
+      logger.error('Keep Delete' + id, error)
     }
   }
 }

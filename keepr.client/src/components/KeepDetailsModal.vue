@@ -50,7 +50,7 @@
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <i class="mdi mdi-delete action" title="Delete Keep" v-show="creatorMatch"></i>
+                    <i class="mdi mdi-delete action" title="Delete Keep" v-show="creatorMatch" @click="deleteKeep"></i>
                   </div>
                   <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-md-4 action" @click="closeModal(`#keepModal${keep.id}`)">
                     <div class="row align-items-end">
@@ -93,6 +93,15 @@ export default {
       creatorMatch: computed(() => {
         return AppState.activeKeep.creatorId === AppState.account.id
       }),
+      async deleteKeep() {
+        try {
+          await Pop.confirm('Are you sure about that?')
+          await keepsService.delete(props.keep.id)
+          this.closeModal(`#keepModal${props.keep.id}`)
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
       async addToVault() {
         // TODO: write function
         logger.log('Placeholder Test', state.vaultId)
