@@ -5,17 +5,16 @@
   <div v-else class="container">
     <CreateKeepModal />
     <CreateVaultModal />
-    <div class="row justify-content-start">
-      <div class="col-md-6">
-        <div class="row py-4 justify-content-between align-items-end">
-          <div class="col-4">
-            <img :src="profile.picture" alt="Profile Image" :title="profile.name">
-          </div>
-          <div class="col-7 d-flex flex-column justify-content-between">
-            <h1>{{ profile.name }}</h1>
-            <span>Vaults: {{ vaults.length }}</span>
-            <span>Keeps: {{ keeps.length }}</span>
-          </div>
+    <div class="row justify-content-start py-3">
+      <div class="col-12 profile-name">
+        <img :src="profile.picture" alt="Profile Image" :title="profile.name" id="profile-img">
+        <div id="profile-details">
+          <h1 id="profile-name">
+            {{ profile.name }}
+          </h1>
+          <span>Vaults: {{ vaults.length }}</span>
+          <br>
+          <span>Keeps: {{ keeps.length }}</span>
         </div>
       </div>
     </div>
@@ -31,7 +30,7 @@
       <h1 class="col-12">
         Keeps <span class="mdi mdi-plus-circle-outline text-success action" v-if="showCreateButtons" title="Create Keep" @click="getModal('#createKeep')"></span>
       </h1>
-      <div class="col-12 card-columns">
+      <div class="col-12 card-columns" id="keeps">
         <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
       </div>
     </div>
@@ -76,12 +75,25 @@ export default {
 </script>
 
 <style scoped>
-  .card-columns {
+  #keeps.card-columns {
   column-count: 5;
   }
 @media only screen and (max-width: 768px) {
   .card-columns {
     column-count: 2;
   }
+  #keeps.card-columns {
+    column-count: 2;
+  }
+}
+
+#profile-name{
+  position: relative;
+}
+
+#profile-details{
+  position: absolute;
+  top: 1vh;
+  left: 10rem;
 }
 </style>

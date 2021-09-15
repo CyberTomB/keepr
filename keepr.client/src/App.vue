@@ -34,7 +34,8 @@ a {
   color: var(--dark);
 
   &:hover{
-    color: var(--info);
+    text-decoration: none;
+    color: var(--gray);
   }
 }
 </style>

@@ -100,7 +100,8 @@ export default {
   transition: all 0.2s linear;
   z-index: 1;
 }
-.keep-remove.mouse-over{
-  /* transform: scale(1.5); */
+
+.keep-card:hover{
+  transform: scale(1.01);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <router-link class="card rounded shadow p-2" :to="{name: 'Vault', params: {id: vault.id}}">
+  <router-link class="card rounded shadow p-2 selectable" :to="{name: 'Vault', params: {id: vault.id}}">
     <div class="card-title">
       <span class="f-18 text-wrap">{{ vault.name }}</span>
     </div>
@@ -16,3 +16,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+:hover{
+      transform: scale(1.01);
+}
+</style>
