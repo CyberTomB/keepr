@@ -1,7 +1,7 @@
 <template>
-  <router-link class="card" :to="{name: 'Vault', params: {id: vault.id}}">
+  <router-link class="card rounded shadow p-2" :to="{name: 'Vault', params: {id: vault.id}}">
     <div class="card-title">
-      <h1>{{ vault.name }}</h1>
+      <span class="f-18 text-wrap">{{ vault.name }}</span>
     </div>
   </router-link>
 </template>

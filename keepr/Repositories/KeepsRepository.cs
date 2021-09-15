@@ -105,8 +105,8 @@ namespace keepr.Repositories
       k.*,
       vk.id AS vaultKeepId
       FROM vaultKeeps vk
-      JOIN accounts a ON vk.creatorId = a.id
       JOIN keeps k ON vk.keepId = k.id
+      JOIN accounts a ON k.creatorId = a.id
       WHERE vk.vaultId = @id;
       ";
       return _db.Query<Profile, VaultKeepsViewModel, VaultKeepsViewModel>(sql, (prof, keep) =>
