@@ -1,5 +1,32 @@
 <template>
-  <div class="container" v-if="github.login"></div>
+  <div class="container" v-if="github.login">
+    <div class="row h-100 align-items-center">
+      <div class="col d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+          <img :src="github.avatar_url" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ github.name }}
+            </h5>
+            <p class="card-text">
+              {{ github.bio }}
+            </p>
+          </div>
+          <div class="card-footer">
+            <IconLink :mdi="'github'">
+              Github
+            </IconLink>
+            <IconLink :mdi="'linkedin'">
+              LinkedIn
+            </IconLink>
+            <IconLink :mdi="'email'" :size="16">
+              tomcbowers@gmail.com
+            </IconLink>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <BeanEaterLoader v-else />
 </template>
 
