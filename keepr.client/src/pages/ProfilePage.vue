@@ -76,7 +76,12 @@ export default {
 </script>
 
 <style scoped>
-.card-columns {
+  .card-columns {
   column-count: 5;
+  }
+@media only screen and (max-width: 768px) {
+  .card-columns {
+    column-count: 2;
+  }
 }
 </style>

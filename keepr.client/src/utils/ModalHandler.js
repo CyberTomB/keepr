@@ -1,4 +1,3 @@
-import { logger } from './Logger'
 import $ from 'jquery'
 
 class ModalHandler {

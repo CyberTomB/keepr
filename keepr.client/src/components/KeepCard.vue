@@ -1,8 +1,8 @@
 <template>
   <KeepDetailsModal :keep="keep" />
-  <div class="keep-card card my-2 shadow selectable">
-    <img class="keep-img img-fluid action rounded" @click="getModal(keep.id)" :src="keep.img" alt="image">
-    <span class="keep-name f-16 text-light px-3 py-2">
+  <div class="keep-card card my-2 shadow selectable" @click="getModal(keep.id)">
+    <img class="keep-img action rounded " :src="keep.img" alt="image">
+    <span class="keep-name f-16 text-light">
       {{ keep.name }}
     </span>
     <img class="keep-creator-img img-fluid" :src="keep.creator.picture" :alt="keep.creator.name">
@@ -53,29 +53,26 @@ export default {
 
 <style>
 .keep-card{
-  display: grid !important;
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  position: relative;
+  text-align: center;
 }
 
 .keep-img{
-  grid-row-start: 1;
-  grid-row-end: 6;
-  grid-column-start: 1;
-  grid-column-end: 6;
+  height: 100%;
+  width: 100%;
 }
 
 .keep-name{
-  grid-row-start: 5;
-  grid-column-start: 1;
-  grid-column-end: 5;
+  position: absolute;
+  bottom: 1.5vh;
+  left: 1vw;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .keep-creator-img{
-  align-content: flex-end;
-  grid-row-start: 5;
-  grid-column-start: 5;
+  position: absolute;
+  bottom: 1vh;
+  right: 1vw;
   border-radius: 50%;
   object-fit: cover;
   width: 5vh;
