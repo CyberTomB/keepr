@@ -1,7 +1,7 @@
 <template>
   <span
     :style="cssProps"
-    class="align-items-center holder mdi pl-2"
+    class="align-items-center holder mdi px-2"
     :class="[`mdi-${mdi}`, state.hover ? state.openClass : state.closedClass]"
     @mouseover="state.hover = true"
     @mouseleave="state.hover = false"
@@ -46,6 +46,7 @@ export default {
 .inner-text{
   font-size: var(--font-size);
   vertical-align: bottom;
+    transition: all 0.3s linear;
 }
 
 .holder{
@@ -54,10 +55,11 @@ export default {
   width: 32px;
   overflow: hidden;
   word-wrap: none;
+    transition: all 0.3s linear;
 }
 
 .holder:hover{
-  transition: all 0.2s linear;
+  transition: all 0.3s linear;
   width: 100%;
 }
 </style>

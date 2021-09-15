@@ -6,7 +6,7 @@
       {{ keep.name }}
     </span>
     <img class="keep-creator-img img-fluid" :src="keep.creator.picture" :alt="keep.creator.name">
-    <i class="keep-remove mdi mdi-sticker-remove action text-danger"
+    <!-- <i class="keep-remove mdi mdi-sticker-remove action text-danger"
        @mouseover="state.mouseOver = true"
        @mouseleave="state.mouseOver = false"
        :class="state.mouseOver ? 'mouse-over bg-danger text-light rounded p-1': ''"
@@ -15,7 +15,10 @@
        @click.stop="removeFromVault(keep.vaultKeepId)"
     >
       {{ state.mouseOver ? 'Remove?' : '' }}
-    </i>
+    </i> -->
+    <IconLink v-if="vaultView" title="Remove from Vault" @click.stop="removeFromVault(keep.vaultKeepId)" class="keep-remove" :mdi="'sticker-remove'">
+      Remove?
+    </IconLink>
   </div>
 </template>
 
