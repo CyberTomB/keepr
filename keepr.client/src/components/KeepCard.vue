@@ -1,12 +1,21 @@
 <template>
   <KeepDetailsModal :keep="keep" />
   <div class="keep-card card my-2 shadow selectable" @click="getModal(keep.id)">
-    <img class="keep-img action rounded " :src="keep.img" alt="image">
+    <img class="keep-img action rounded" :src="keep.img" alt="image">
     <span class="keep-name f-16 text-light">
       {{ keep.name }}
     </span>
     <img class="keep-creator-img img-fluid" :src="keep.creator.picture" :alt="keep.creator.name">
-    <i class="keep-remove mdi mdi-sticker-remove action text-danger" v-if="vaultView" title="Remove From Vault" @click.stop="removeFromVault(keep.vaultKeepId)"></i>
+    <i class="keep-remove mdi mdi-sticker-remove action text-danger"
+       @mouseover="state.mouseOver = true"
+       @mouseleave="state.mouseOver = false"
+       :class="state.mouseOver ? 'mouse-over bg-danger text-light rounded p-1': ''"
+       v-if="vaultView"
+       title="Remove From Vault"
+       @click.stop="removeFromVault(keep.vaultKeepId)"
+    >
+      {{ state.mouseOver ? 'Remove?' : '' }}
+    </i>
   </div>
 </template>
 
@@ -14,7 +23,7 @@
 import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
-import { computed } from '@vue/runtime-core'
+import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 export default {
@@ -29,7 +38,11 @@ export default {
     }
   },
   setup() {
+    const state = reactive({
+      mouseOver: false
+    })
     return {
+      state,
       activeKeep: computed(() => AppState.activeKeep),
       async getModal(id) {
         try {
@@ -84,8 +97,10 @@ export default {
   position: absolute;
   top: 1vh;
   left: 1vh;
+  transition: all 0.2s linear;
+  z-index: 1;
 }
-.keep-remove:hover{
-  transform: scale(1.5);
+.keep-remove.mouse-over{
+  /* transform: scale(1.5); */
 }
 </style>

@@ -1,17 +1,22 @@
 <template>
-  <div class="container">
+  <div class="container d-flex">
     <div class="row" v-if="state.loading">
       <h1>Loading...</h1>
     </div>
-    <div class="row" v-else>
+    <div class="row flex-grow-1 align-content-start" v-else>
       <h1 class="col-12">
         {{ vault.name }} <span v-if="creatorMatch" class="mdi mdi-delete action text-danger" title="Delete Vault" @click="deleteVault"></span>
       </h1>
+      <div class="col-12">
+        <button class="btn btn-info" @click="returnToProfile">
+          Go Back
+        </button>
+      </div>
       <div class="col-12 card-columns" v-if="keeps.length > 0">
         <KeepCard v-for="k in keeps" :key="k.id" :keep="k" :vault-view="creatorMatch" />
       </div>
       <div class="col-12" v-else>
-        <h4>There is no Keeps</h4>
+        <h4><em>This Vault has no keeps... :(</em></h4>
       </div>
     </div>
   </div>
@@ -46,6 +51,9 @@ export default {
       state,
       keeps: computed(() => AppState.keeps),
       vault: computed(() => AppState.activeVault),
+      returnToProfile() {
+        router.push({ name: 'Profile', params: { id: AppState.activeVault.creatorId } })
+      },
       creatorMatch: computed(() => {
         return AppState.account.id === AppState.activeVault.creatorId
       }),
