@@ -26,21 +26,22 @@
                   </div>
                 </div>
                 <!-- Primary Content -->
-                <div class="row flex-grow-1">
+                <div class="row flex-grow-1 align-content-around justify-content-center">
                   <div class="col-12">
                     <h3 class="text-center">
                       <b>{{ keep.name }}</b>
                     </h3>
                     <p>{{ keep.description }}</p>
                   </div>
+                  <div class="line-break col-8 my-4"></div>
                 </div>
                 <!-- Bottom buttons -->
                 <div class="row justify-content-around align-items-end">
-                  <div class="col-md-6">
+                  <div class="col-6">
                     <!-- <button type="button" class="btn btn-success" @click="addToKeep">
                       Add <span class="mdi mdi-arrow-right-drop-circle" />
                     </button> -->
-                    <div class="action" v-show="yourVaults.length > 0">
+                    <div class="action text-center" v-show="yourVaults.length > 0">
                       Add to Vault:
                       <select v-model="state.vaultId" @change="addToVault">
                         <option v-for="v in yourVaults" :key="v.id" :value="v.id">
@@ -49,13 +50,13 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-2">
                     <DeleteBtn v-show="creatorMatch" @delete="deleteKeep" />
                   </div>
-                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="col-md-4 action" @click="closeModal">
+                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class=" action col-4" @click="closeModal">
                     <div class="row align-items-end">
-                      <img :src="activeKeep.creator.picture" class="profile-img col-6" alt="">
-                      <span class="text-truncate col-6">{{ activeKeep.creator.name }}</span>
+                      <img :src="activeKeep.creator.picture" class="profile-img col-4" alt="">
+                      <span class="text-truncate col-8">{{ activeKeep.creator.name }}</span>
                     </div>
                   </router-link>
                 </div>
@@ -134,5 +135,10 @@ export default {
   object-fit: cover;
   max-width: 10vh;
   max-height: 10vh;
+}
+
+.line-break{
+  height: 1px;
+  background-color: var(--gray);
 }
 </style>
