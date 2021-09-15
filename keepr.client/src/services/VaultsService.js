@@ -48,7 +48,7 @@ class VaultsService {
     try {
       const res = await api.delete('/api/vaults/' + id)
       logger.log(res.data)
-      Pop.toast('Deleted ' + res.data.name, 'success')
+      Pop.toast('Deleted ' + res.data.name, 'success', 'bottom-end')
       AppState.vaults = AppState.vaults.filter(v => v.id !== res.data.id)
     } catch (error) {
       Pop.toast(error, 'error')

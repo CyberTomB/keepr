@@ -90,7 +90,7 @@ export default {
       async createKeep() {
         try {
           await keepsService.create(state.keep)
-          Pop.toast('Created Keep', 'success')
+          Pop.toast('Created Keep', 'success', 'bottom-end')
           state.keep = {
             name: '',
             img: '',

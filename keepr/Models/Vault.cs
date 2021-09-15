@@ -16,4 +16,9 @@ namespace keepr.Models
         public string CreatorId {get; set;}
         public Profile Creator { get; set;}
     }
+
+    public class VaultPreview : Vault
+    {
+        public string Img {get; set;}
+    }
 }

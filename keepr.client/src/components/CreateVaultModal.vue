@@ -83,7 +83,7 @@ export default {
       async createVault() {
         try {
           await vaultsService.create(state.vault)
-          Pop.toast('Created Vault', 'success')
+          Pop.toast('Created Vault', 'success', 'bottom-end')
           state.vault = {
             name: '',
             description: '',

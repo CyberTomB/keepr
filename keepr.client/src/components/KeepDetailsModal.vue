@@ -117,7 +117,7 @@ export default {
           const added = await keepsService.addToVault(state.vaultId, props.keep.id)
           logger.log(added)
           if (added) {
-            await Pop.toast('Added to Vault', 'success')
+            await Pop.toast('Added', 'success', 'bottom-end', 1000, false)
           } else { Pop.toast('Something went wrong', 'error') }
         } catch (error) {
           logger.error(error)

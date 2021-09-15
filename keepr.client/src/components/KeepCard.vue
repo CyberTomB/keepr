@@ -6,7 +6,7 @@
       {{ keep.name }}
     </span>
     <img class="keep-creator-img img-fluid" :src="keep.creator.picture" :alt="keep.creator.name">
-    <i class="mdi mdi-sticker-remove action" v-if="vaultView" title="Remove From Vault" @click.stop="removeFromVault(keep.vaultKeepId)"></i>
+    <i class="keep-remove mdi mdi-sticker-remove action text-danger" v-if="vaultView" title="Remove From Vault" @click.stop="removeFromVault(keep.vaultKeepId)"></i>
   </div>
 </template>
 
@@ -78,5 +78,14 @@ export default {
   width: 5vh;
   height: 5vh;
   margin: auto;
+}
+
+.keep-remove{
+  position: absolute;
+  top: 1vh;
+  left: 1vh;
+}
+.keep-remove:hover{
+  transform: scale(1.5);
 }
 </style>

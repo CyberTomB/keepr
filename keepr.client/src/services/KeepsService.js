@@ -89,7 +89,7 @@ class KeepsService {
   async delete(id) {
     try {
       const res = await api.delete('/api/keeps/' + id)
-      Pop.toast('Deleted', 'success')
+      Pop.toast('Deleted', 'success', 'bottom-end')
       logger.log('delete keep: ' + id, res.data)
       AppState.keeps = AppState.keeps.filter(k => k.id !== id)
     } catch (error) {
