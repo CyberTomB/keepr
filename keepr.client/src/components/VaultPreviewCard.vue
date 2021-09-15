@@ -1,7 +1,7 @@
 <template>
   <router-link class="card rounded shadow p-2 selectable vault" :to="{name: 'Vault', params: {id: vault.id}}">
     <div class="card-title">
-      <span class="f-18 text-wrap">{{ vault.name }} <i :class="vault.isPrivate ? 'privacy-indicator mdi mdi-lock' : ''"></i></span>
+      <span class="f-18 text-wrap">{{ vault.name }} <PrivacyIndicator v-if="vault.isPrivate" /></span>
     </div>
   </router-link>
 </template>
