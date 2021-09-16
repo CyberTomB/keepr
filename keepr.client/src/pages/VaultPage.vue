@@ -5,15 +5,23 @@
     </div>
     <div class="row flex-grow-1 align-content-start" v-else>
       <h1 class="col-12">
-        {{ vault.name }} <PrivacyIndicator v-if="vault.isPrivate" /><IconLink v-if="creatorMatch"
-                                                                              :mdi="'delete'"
-                                                                              :closed="'text-danger'"
-                                                                              :open="'bg-danger'"
-                                                                              :size="'1rem'"
-                                                                              :wrap-size="'2.5rem'"
-                                                                              :icon-size="'2rem'"
-                                                                              title="Delete Vault"
-                                                                              @click="deleteVault"
+        {{ vault.name }} <PrivacyIndicator
+          @mouseenter="state.isPrivate = !vault.isPrivate"
+          @mouseleave="state.isPrivate = vault.isPrivate"
+          class="action"
+          :is-private="state.isPrivate"
+          title="Toggle Privacy"
+          @click="togglePrivacy"
+        />
+        <IconLink v-if="creatorMatch"
+                  :mdi="'delete'"
+                  :closed="'text-danger'"
+                  :open="'bg-danger'"
+                  :size="'1rem'"
+                  :wrap-size="'2.5rem'"
+                  :icon-size="'2rem'"
+                  title="Delete Vault"
+                  @click="deleteVault"
         >
           <em> &nbsp;Delete Vault?</em>
         </IconLink>
@@ -45,16 +53,18 @@ export default {
   setup() {
     const router = useRouter()
     const state = reactive({
-      loading: false
+      loading: false,
+      isPrivate: false
     })
     const route = useRoute()
     onMounted(async() => {
       state.loading = true
       const access = await vaultsService.getOne(route.params.id)
-      if (!access) {
+      if (!access.isValid) {
         logger.log('access:', access)
         router.push({ name: 'Home' })
       }
+      state.isPrivate = access.isPrivate
       await keepsService.getAllByVault(route.params.id)
       state.loading = false
     })
@@ -68,6 +78,22 @@ export default {
       creatorMatch: computed(() => {
         return AppState.account.id === AppState.activeVault.creatorId
       }),
+      async togglePrivacy() {
+        try {
+          const rawVault = {
+            id: route.params.id,
+            isPrivate: true,
+            name: AppState.activeVault.name
+          }
+          if (await Pop.confirm(`Are you sure you want to make ${AppState.activeVault.name} ${AppState.activeVault.isPrivate ? 'public' : 'private'}?`, '', 'question', 'Yes')) {
+            rawVault.isPrivate = !AppState.activeVault.isPrivate
+            const editedVault = await vaultsService.edit(rawVault)
+            state.isPrivate = editedVault.isPrivate
+          }
+        } catch (error) {
+          Pop.toast('Something went wrong', 'error')
+        }
+      },
       async deleteVault() {
         try {
           if (await Pop.confirm('Are you sure you want to delete this vault?')) {

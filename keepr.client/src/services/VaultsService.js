@@ -19,15 +19,19 @@ class VaultsService {
   }
 
   async getOne(id) {
-    let access = true
+    const access = {
+      isValid: true,
+      isPrivate: false
+    }
     try {
       const res = await api.get('/api/vaults/' + id)
       logger.log(res.data)
       AppState.activeVault = res.data
+      access.isPrivate = res.data.isPrivate
       return access
     } catch (error) {
       logger.error('Vaults', error)
-      access = false
+      access.isValid = false
       return access
     }
   }
@@ -51,6 +55,25 @@ class VaultsService {
       Pop.toast('Deleted ' + res.data.name, 'success', 'bottom-end')
       AppState.vaults = AppState.vaults.filter(v => v.id !== res.data.id)
     } catch (error) {
+      Pop.toast(error, 'error')
+    }
+  }
+
+  /**
+   *
+   * @param {Object} rawVault
+   * rawVault object should contain id and any properties you wish to change: isPrivate, name, description ::
+   * name is required by server
+   */
+  async edit(rawVault) {
+    try {
+      const res = await api.put('/api/vaults/' + rawVault.id, rawVault)
+      Pop.toast('Updated', 'success', 'bottom-end', 2000)
+      logger.log(res.data)
+      AppState.activeVault = res.data
+      return res.data
+    } catch (error) {
+      logger.error('Vault update', error)
       Pop.toast(error, 'error')
     }
   }
