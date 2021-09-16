@@ -5,7 +5,18 @@
     </div>
     <div class="row flex-grow-1 align-content-start" v-else>
       <h1 class="col-12">
-        {{ vault.name }} <span v-if="creatorMatch" class="mdi mdi-delete action text-danger" title="Delete Vault" @click="deleteVault"><PrivacyIndicator v-if="vault.isPrivate" /></span>
+        {{ vault.name }} <PrivacyIndicator v-if="vault.isPrivate" /><IconLink v-if="creatorMatch"
+                                                                              :mdi="'delete'"
+                                                                              :closed="'text-danger'"
+                                                                              :open="'bg-danger'"
+                                                                              :size="'1rem'"
+                                                                              :wrap-size="'2.5rem'"
+                                                                              :icon-size="'2rem'"
+                                                                              title="Delete Vault"
+                                                                              @click="deleteVault"
+        >
+          <em> &nbsp;Delete Vault?</em>
+        </IconLink>
       </h1>
       <div class="col-12">
         <button class="btn btn-info" @click="returnToProfile">

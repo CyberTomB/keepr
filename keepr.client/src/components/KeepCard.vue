@@ -13,9 +13,9 @@
               :mdi="'sticker-remove'"
               :closed="'text-danger'"
               :open="'bg-danger'"
-              :size="16"
+              :size="'16px'"
     >
-      Remove?
+      &nbsp;Remove?
     </IconLink>
   </div>
 </template>

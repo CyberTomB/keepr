@@ -16,9 +16,17 @@ export default {
       type: String,
       required: true
     },
+    iconSize: {
+      type: String,
+      default: '24px'
+    },
+    wrapSize: {
+      type: String,
+      default: '32px'
+    },
     size: {
-      type: Number,
-      default: 24
+      type: String,
+      default: '24px'
     },
     closed: {
       type: String,
@@ -37,13 +45,19 @@ export default {
     })
     return {
       state,
-      fontSize: String(props.size) + 'px'
+      fontSize: props.size,
+      // eslint-disable-next-line vue/no-dupe-keys
+      iconSize: props.iconSize,
+      // eslint-disable-next-line vue/no-dupe-keys
+      wrapSize: props.wrapSize
     }
   },
   computed: {
     cssProps() {
       return {
-        '--font-size': (this.fontSize)
+        '--font-size': (this.fontSize),
+        '--icon-size': (this.iconSize),
+        '--wrap-size': (this.wrapSize)
       }
     }
   }
@@ -54,15 +68,16 @@ export default {
 .inner-text{
   font-size: var(--font-size);
   vertical-align: bottom;
+  white-space: nowrap;
 }
 
 .holder{
   display: inline-flex;
-  font-size: 24px;
-  width: 32px;
+  font-size: var(--icon-size);
+  width: var(--wrap-size);
   max-width: max-content;
   overflow: hidden;
-  word-wrap: none;
+  word-wrap: normal;
 }
 
 .holder:hover{

@@ -19,7 +19,7 @@
             <IconLink :mdi="'linkedin'" href="https://www.linkedin.com/in/tombowers93/" title="LinkedIn/Tombowers93" target="_blank">
               &nbsp;LinkedIn
             </IconLink>
-            <IconLink :mdi="'email'" :size="16" href="mailto:tomcbowers@gmailcom" title="Email">
+            <IconLink :mdi="'email'" :size="'16px'" href="mailto:tomcbowers@gmailcom" title="Email">
               &nbsp;tomcbowers@gmail.com
             </IconLink>
           </div>
