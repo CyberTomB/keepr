@@ -59,6 +59,7 @@ export default {
           Pop.toast('Removed', 'success', 'bottom-end', 1000)
         } catch (error) {
           logger.error(error)
+          Pop.toast(error, 'error')
         }
       }
     }

@@ -15,6 +15,7 @@ class VaultsService {
       AppState.vaults = res.data
     } catch (error) {
       logger.error('Vaults', error)
+      Pop.toast(error, 'error')
     }
   }
 
@@ -31,6 +32,7 @@ class VaultsService {
       return access
     } catch (error) {
       logger.error('Vaults', error)
+      Pop.toast(error, 'error')
       access.isValid = false
       return access
     }

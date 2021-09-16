@@ -1,5 +1,6 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
+import Pop from '../utils/Notifier'
 import { api } from './AxiosService'
 
 class ProfilesService {
@@ -10,6 +11,7 @@ class ProfilesService {
       AppState.profile = res.data
     } catch (error) {
       logger.error('Profile', error)
+      Pop.toast(error, 'error')
     }
   }
 }

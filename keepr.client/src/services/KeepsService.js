@@ -13,6 +13,7 @@ class KeepsService {
       AppState.activeKeep = res.data[0]
     } catch (err) {
       logger.error('Keeps Service GetAll', err)
+      Pop.toast(err, 'error')
     }
   }
 
@@ -23,6 +24,7 @@ class KeepsService {
       AppState.keeps = res.data
     } catch (error) {
       logger.error('Keeps', error)
+      Pop.toast(error, 'error')
     }
   }
 
@@ -33,6 +35,7 @@ class KeepsService {
       AppState.keeps = res.data
     } catch (error) {
       logger.error('Vaults', error)
+      Pop.toast(error, 'error')
     }
   }
 
@@ -47,6 +50,7 @@ class KeepsService {
       AppState.activeKeep = res.data
     } catch (err) {
       logger.error('Keeps Service GetOne', err)
+      Pop.toast(err, 'error')
     }
   }
 
@@ -62,6 +66,7 @@ class KeepsService {
       return true
     } catch (error) {
       logger.error('Keeps Add Vault', error)
+      Pop.toast(error, 'error')
       return false
     }
   }
@@ -73,6 +78,7 @@ class KeepsService {
       AppState.keeps = AppState.keeps.filter(k => k.vaultKeepId !== vkId)
     } catch (error) {
       logger.error('Keeps Remove Vault', error)
+      Pop.toast(error, 'error')
     }
   }
 
@@ -94,6 +100,7 @@ class KeepsService {
       AppState.keeps = AppState.keeps.filter(k => k.id !== id)
     } catch (error) {
       logger.error('Keep Delete' + id, error)
+      Pop.toast(error, 'error')
     }
   }
 }
