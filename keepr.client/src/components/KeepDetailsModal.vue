@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: Fix the "v=if" statement that trips the modal up -->
   <div class="modal fade" :id="`keepModal${keep.id}`" aria-labelledby="keepModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -54,8 +53,7 @@
                               v-show="creatorMatch"
                               @click.stop="deleteKeep"
                               title="Delete"
-                    >
-                    </IconLink>
+                    />
                   </div>
                   <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class=" action col-4" @click="closeModal">
                     <div class="row align-items-end">

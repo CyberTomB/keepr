@@ -14,13 +14,13 @@
           </div>
           <div class="card-footer">
             <IconLink :mdi="'github'">
-              Github
+              &nbsp;Github
             </IconLink>
             <IconLink :mdi="'linkedin'">
-              LinkedIn
+              &nbsp;LinkedIn
             </IconLink>
             <IconLink :mdi="'email'" :size="16">
-              tomcbowers@gmail.com
+              &nbsp;tomcbowers@gmail.com
             </IconLink>
           </div>
         </div>

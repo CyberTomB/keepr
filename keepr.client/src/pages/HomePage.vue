@@ -30,4 +30,10 @@ export default {
 .card-columns{
   column-count: 4;
 }
+
+@media only screen and (max-width: 768px){
+  .card-columns{
+    column-count: 2;
+  }
+}
 </style>
