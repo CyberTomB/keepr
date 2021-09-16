@@ -5,7 +5,7 @@
     :class="[`mdi-${mdi}`, state.hover ? state.openClass : state.closedClass]"
     @mouseover="state.hover = true"
     @mouseleave="state.hover = false"
-  ><span class="inner-text"><slot /></span></span>
+  >&nbsp;<span class="inner-text"><slot /></span></span>
 </template>
 
 <script>

@@ -38,12 +38,9 @@
                 <!-- Bottom buttons -->
                 <div class="row justify-content-around align-items-end">
                   <div class="col-6">
-                    <!-- <button type="button" class="btn btn-success" @click="addToKeep">
-                      Add <span class="mdi mdi-arrow-right-drop-circle" />
-                    </button> -->
-                    <div class="action text-center" v-show="yourVaults.length > 0">
+                    <div class="text-center" v-show="yourVaults.length > 0">
                       Add to Vault:
-                      <select v-model="state.vaultId" @change="addToVault">
+                      <select class="action vault-selector" v-model="state.vaultId" @change="addToVault">
                         <option v-for="v in yourVaults" :key="v.id" :value="v.id">
                           {{ v.name }}
                         </option>
@@ -51,7 +48,14 @@
                     </div>
                   </div>
                   <div class="col-2">
-                    <DeleteBtn v-show="creatorMatch" @delete="deleteKeep" />
+                    <IconLink :mdi="'delete'"
+                              :closed="'text-danger'"
+                              :open="'bg-danger'"
+                              v-show="creatorMatch"
+                              @click.stop="deleteKeep"
+                              title="Delete"
+                    >
+                    </IconLink>
                   </div>
                   <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class=" action col-4" @click="closeModal">
                     <div class="row align-items-end">
@@ -76,7 +80,9 @@ import { logger } from '../utils/Logger'
 import Pop from '../utils/Notifier'
 import { keepsService } from '../services/KeepsService'
 import { modalHandler } from '../utils/ModalHandler'
+import IconLink from './IconLink.vue'
 export default {
+  components: { IconLink },
   props: {
     keep: {
       type: Object,
@@ -140,5 +146,9 @@ export default {
 .line-break{
   height: 1px;
   background-color: var(--gray);
+}
+
+.vault-selector{
+  max-width: 100%;
 }
 </style>
