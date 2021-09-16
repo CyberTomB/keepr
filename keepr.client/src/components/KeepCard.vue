@@ -1,7 +1,7 @@
 <template>
   <KeepDetailsModal :keep="keep" />
   <div class="keep-card card my-2 shadow selectable" @click="getModal(keep.id)">
-    <img class="keep-img action rounded" :src="keep.img" alt="image">
+    <img class="keep-img action rounded" :src="keep.img" alt="This image did not load.">
     <span class="keep-name f-16 text-light">
       {{ keep.name }}
     </span>

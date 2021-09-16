@@ -3,7 +3,7 @@
     <div class="row h-100 align-items-center">
       <div class="col-6 d-flex justify-content-center">
         <div class="card" style="width: 25rem;">
-          <img :src="github.avatar_url" class="card-img-top" alt="...">
+          <img :src="github.avatar_url" class="card-img-top" alt="This image did not load.">
           <div class="card-body">
             <h4 class="card-title pb-2">
               Developer: <b>{{ github.name }}</b>

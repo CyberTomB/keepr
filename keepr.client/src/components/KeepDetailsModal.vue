@@ -9,7 +9,7 @@
                 <span class="action" data-dismiss="modal" title="close">X</span>
               </div>
               <div class="col-md-6">
-                <img :src="keep.img" alt="image" class="img-fluid rounded">
+                <img :src="keep.img" alt="This image did not load." class="img-fluid rounded">
               </div>
               <div class="col-md-6 d-flex flex-column justify-content-between">
                 <!-- Metrics -->
@@ -58,7 +58,7 @@
                     />
                   </div>
                   <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" :class="creatorMatch ? 'col-4 pl-0' : 'col-5'" class="action profile-info d-flex align-items-center" @click="closeModal" :title="activeKeep.creator.name + ' profile'">
-                    <img :src="activeKeep.creator.picture" class="profile-img" alt="">
+                    <img :src="activeKeep.creator.picture" class="profile-img" alt="This image did not load.">
                     <span class="profile-name ml-2">{{ activeKeep.creator.name }}</span>
                   </router-link>
                 </div>
