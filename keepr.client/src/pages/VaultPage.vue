@@ -24,7 +24,7 @@
                   title="Delete Vault"
                   @click="deleteVault"
         >
-          <em> &nbsp;Delete Vault?</em>
+          <em v-if="!isMobile"> &nbsp;Delete Vault?</em>
         </IconLink>
       </h1>
       <div class="col-12">
@@ -71,6 +71,7 @@ export default {
     })
     return {
       state,
+      isMobile: computed(() => AppState.isMobile),
       keeps: computed(() => AppState.keeps),
       vault: computed(() => AppState.activeVault),
       returnToProfile() {
