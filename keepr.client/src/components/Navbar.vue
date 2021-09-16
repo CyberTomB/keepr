@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }" title="Home">
+    <router-link class="navbar-brand d-flex align-items-center" :to="{ name: 'Home' }" title="Keepr">
       <div class="d-flex flex-column align-items-center">
         <img class="bg-primary rounded"
              alt="logo"
@@ -8,6 +8,9 @@
              height="45"
         />
       </div>
+      <h3 class="text-light darken-10">
+        &nbsp;Keepr
+      </h3>
     </router-link>
     <button
       class="navbar-toggler"
