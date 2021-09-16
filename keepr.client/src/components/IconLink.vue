@@ -1,7 +1,7 @@
 <template>
   <span
     :style="cssProps"
-    class="align-items-center holder mdi px-2"
+    class="align-items-center holder mdi px-2 action"
     :class="[`mdi-${mdi}`, state.hover ? state.openClass : state.closedClass]"
     @mouseover="state.hover = true"
     @mouseleave="state.hover = false"
@@ -19,13 +19,21 @@ export default {
     size: {
       type: Number,
       default: 24
+    },
+    closed: {
+      type: String,
+      default: 'text-dark'
+    },
+    open: {
+      type: String,
+      default: 'bg-info'
     }
   },
   setup(props) {
     const state = reactive({
       hover: false,
-      closedClass: '',
-      openClass: 'bg-info rounded'
+      closedClass: props.closed,
+      openClass: props.open + ' rounded'
     })
     return {
       state,
@@ -46,20 +54,20 @@ export default {
 .inner-text{
   font-size: var(--font-size);
   vertical-align: bottom;
-    transition: all 0.3s linear;
 }
 
 .holder{
   display: flex;
   font-size: 24px;
   width: 32px;
+  max-width: max-content;
   overflow: hidden;
   word-wrap: none;
-    transition: all 0.3s linear;
 }
 
 .holder:hover{
-  transition: all 0.3s linear;
+  transition: width 0.4s linear;
   width: 100%;
+  max-width: max-content;
 }
 </style>

@@ -16,7 +16,15 @@
     >
       {{ state.mouseOver ? 'Remove?' : '' }}
     </i> -->
-    <IconLink v-if="vaultView" title="Remove from Vault" @click.stop="removeFromVault(keep.vaultKeepId)" class="keep-remove" :mdi="'sticker-remove'">
+    <IconLink v-if="vaultView"
+              title="Remove from Vault"
+              @click.stop="removeFromVault(keep.vaultKeepId)"
+              class="keep-remove"
+              :mdi="'sticker-remove'"
+              :closed="'text-danger'"
+              :open="'bg-danger'"
+              :size="16"
+    >
       Remove?
     </IconLink>
   </div>
