@@ -51,7 +51,7 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" title="Close">
               Close
             </button>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-success">
               Create Vault
             </button>
           </div>
