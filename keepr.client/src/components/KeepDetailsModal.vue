@@ -36,30 +36,30 @@
                 </div>
                 <!-- Bottom buttons -->
                 <div class="row justify-content-around align-items-end">
-                  <div class="col-6">
+                  <div class="col-5">
                     <div class="text-center" v-show="yourVaults.length > 0">
                       Add to Vault:
-                      <select class="action vault-selector" v-model="state.vaultId" @change="addToVault">
+                      <select class="action vault-selector" v-model="state.vaultId" @change="addToVault" title="Add to Vault">
                         <option v-for="v in yourVaults" :key="v.id" :value="v.id">
                           {{ v.name }}
                         </option>
                       </select>
                     </div>
                   </div>
-                  <div class="col-2">
+                  <div class="col-2 p-0"
+                       v-if="creatorMatch"
+                  >
                     <IconLink :mdi="'delete'"
                               :closed="'text-danger'"
                               :open="'bg-danger'"
-                              v-show="creatorMatch"
+                              :icon-size="'1.5rem'"
                               @click.stop="deleteKeep"
                               title="Delete"
                     />
                   </div>
-                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="action col-4" @click="closeModal">
-                    <div class="row align-items-end">
-                      <img :src="activeKeep.creator.picture" class="profile-img col-4" alt="">
-                      <span class="text-truncate col-8">{{ activeKeep.creator.name }}</span>
-                    </div>
+                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" :class="creatorMatch ? 'col-4 pl-0' : 'col-5'" class="action profile-info d-flex align-items-center" @click="closeModal" :title="activeKeep.creator.name + ' profile'">
+                    <img :src="activeKeep.creator.picture" class="profile-img" alt="">
+                    <span class="profile-name ml-2">{{ activeKeep.creator.name }}</span>
                   </router-link>
                 </div>
               </div>
@@ -134,11 +134,22 @@ export default {
 </script>
 
 <style scoped>
+.profile-info{
+  position: relative;
+}
+
 .profile-img{
+  bottom: 0.2rem;
     border-radius: 50%;
   object-fit: cover;
-  max-width: 10vh;
-  max-height: 10vh;
+  max-width: 6vh;
+  max-height: 6vh;
+}
+
+.profile-name{
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .line-break{
@@ -149,4 +160,5 @@ export default {
 .vault-selector{
   max-width: 100%;
 }
+
 </style>
