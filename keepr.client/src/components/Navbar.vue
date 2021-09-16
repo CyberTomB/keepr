@@ -38,6 +38,7 @@
           class="btn btn-outline-primary text-uppercase"
           @click="login"
           v-if="!user.isAuthenticated"
+          title="Login"
         >
           Login
         </button>
@@ -60,16 +61,17 @@
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
           >
-            <router-link :to="{ name: 'Profile', params: {id: account.id } }">
+            <router-link :to="{ name: 'Profile', params: {id: account.id } }" title="Account">
               <div class="list-group-item list-group-item-action hoverable">
                 Account
               </div>
             </router-link>
             <div
+              title="Logout"
               class="list-group-item list-group-item-action hoverable"
               @click="logout"
             >
-              logout
+              Logout
             </div>
           </div>
         </div>

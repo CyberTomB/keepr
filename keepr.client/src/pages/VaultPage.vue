@@ -12,6 +12,7 @@
           :is-private="state.isPrivate"
           title="Toggle Privacy"
           @click="togglePrivacy"
+          v-if="creatorMatch"
         />
         <IconLink v-if="creatorMatch"
                   :mdi="'delete'"

@@ -55,7 +55,7 @@
                               title="Delete"
                     />
                   </div>
-                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class=" action col-4" @click="closeModal">
+                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" class="action col-4" @click="closeModal">
                     <div class="row align-items-end">
                       <img :src="activeKeep.creator.picture" class="profile-img col-4" alt="">
                       <span class="text-truncate col-8">{{ activeKeep.creator.name }}</span>

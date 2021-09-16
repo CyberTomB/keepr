@@ -38,18 +38,20 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { computed, onMounted, reactive, ref } from '@vue/runtime-core'
 import { profilesService } from '../services/ProfilesService'
 import { vaultsService } from '../services/VaultsService'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
+import { logger } from '../utils/Logger'
 export default {
   setup() {
     const state = reactive({
       loading: false
     })
+    const router = useRouter()
     const route = useRoute()
     onMounted(async() => {
       state.loading = true
@@ -60,6 +62,9 @@ export default {
     })
     return {
       state,
+      router,
+      route,
+      routeId: computed(() => route.params.id),
       profile: computed(() => AppState.profile),
       vaults: computed(() => AppState.vaults),
       keeps: computed(() => AppState.keeps),
@@ -69,6 +74,20 @@ export default {
       showCreateButtons: computed(() => {
         return AppState.account.id === route.params.id
       })
+    }
+  },
+  watch: {
+    routeId: async function(newRoute, oldRoute) {
+      if (oldRoute !== newRoute && this.route.name === 'Profile') {
+        logger.log('route info:', this.route.name)
+        // this.router.push({ name: 'Profile', params: { id: newRoute } })
+        // await profilesService.getProfile(newRoute)
+        this.state.loading = true
+        await profilesService.getProfile(newRoute)
+        await vaultsService.getAllByProfile(newRoute)
+        await keepsService.getAllByProfile(newRoute)
+        this.state.loading = false
+      }
     }
   }
 }
