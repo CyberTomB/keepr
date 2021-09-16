@@ -4,29 +4,31 @@
       <h1>Loading...</h1>
     </div>
     <div class="row flex-grow-1 align-content-start" v-else>
-      <h1 class="col-12">
-        {{ vault.name }} <PrivacyIndicator
-          @mouseenter="state.isPrivate = !vault.isPrivate"
-          @mouseleave="state.isPrivate = vault.isPrivate"
-          class="action px-1"
-          :is-private="state.isPrivate"
-          title="Toggle Privacy"
-          @click="togglePrivacy"
-          v-if="creatorMatch"
-        />
-        <IconLink v-if="creatorMatch"
-                  :mdi="'delete'"
-                  :closed="'text-danger'"
-                  :open="'bg-danger'"
-                  :size="'1rem'"
-                  :wrap-size="'2.5rem'"
-                  :icon-size="'2rem'"
-                  title="Delete Vault"
-                  @click="deleteVault"
-        >
-          <em v-if="!isMobile"> &nbsp;Delete Vault?</em>
-        </IconLink>
-      </h1>
+      <div class="col-12">
+        <h1 id="vault-title">
+          {{ vault.name }} <PrivacyIndicator
+            @mouseenter="state.isPrivate = !vault.isPrivate"
+            @mouseleave="state.isPrivate = vault.isPrivate"
+            class="action px-1"
+            :is-private="state.isPrivate"
+            title="Toggle Privacy"
+            @click="togglePrivacy"
+            v-if="creatorMatch"
+          />
+          <IconLink v-if="creatorMatch"
+                    :mdi="'delete'"
+                    :closed="'text-danger'"
+                    :open="'bg-danger'"
+                    :size="'1rem'"
+                    :wrap-size="'2.5rem'"
+                    :icon-size="'2rem'"
+                    title="Delete Vault"
+                    @click="deleteVault"
+          >
+            <em v-if="!isMobile"> &nbsp;Delete Vault?</em>
+          </IconLink>
+        </h1>
+      </div>
       <div class="col-12">
         <button class="btn btn-info" @click="returnToProfile">
           Go Back

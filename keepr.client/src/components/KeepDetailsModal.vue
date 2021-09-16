@@ -13,14 +13,15 @@
               </div>
               <div class="col-md-6 d-flex flex-column justify-content-between">
                 <!-- Metrics -->
-                <div class="row py-2 justify-content-around">
+                <div class="row py-2 justify-content-around f-16">
                   <div class="col-4 text-right">
-                    <span class="mdi mdi-eye">{{ " " + activeKeep.views }}</span>
+                    <span class="mdi mdi-eye" title="Views">{{ " " + activeKeep.views }}</span>
                   </div>
                   <div class="col-4 text-center">
-                    <span class="mdi mdi-safe">{{ " " + activeKeep.keeps }}</span>
+                    <span class="mdi mdi-safe" title="Keeps">{{ " " + activeKeep.keeps }}</span>
                   </div>
-                  <div class="col-4">
+                  <!-- TODO: Implement Shares Link -->
+                  <div class="col-4" title="Shares (Coming Soon!)">
                     <span class="mdi mdi-share-variant">{{ " " + activeKeep.shares }}</span>
                   </div>
                 </div>
@@ -39,7 +40,7 @@
                   <div class="col-5">
                     <div class="text-center" v-show="yourVaults.length > 0">
                       Add to Vault:
-                      <select class="action vault-selector" v-model="state.vaultId" @change="addToVault" title="Add to Vault">
+                      <select class="action vault-selector form-select bg-gray" aria-label="Add to Vault" v-model="state.vaultId" @change="addToVault" title="Add to Vault">
                         <option v-for="v in yourVaults" :key="v.id" :value="v.id">
                           {{ v.name }}
                         </option>
@@ -57,7 +58,13 @@
                               title="Delete"
                     />
                   </div>
-                  <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" :class="creatorMatch ? 'col-4 pl-0' : 'col-5'" class="action profile-info d-flex align-items-center" @click="closeModal" :title="activeKeep.creator.name + ' profile'">
+                  <router-link
+                    :to="{name: 'Profile', params: {id: keep.creator.id}}"
+                    :class="creatorMatch ? 'col-4 pl-0' : 'col-5'"
+                    class="action profile-info d-flex align-items-center"
+                    @click="closeModal"
+                    :title="activeKeep.creator.name + ' profile'"
+                  >
                     <img :src="activeKeep.creator.picture" class="profile-img" alt="This image did not load.">
                     <span class="profile-name ml-2">{{ activeKeep.creator.name }}</span>
                   </router-link>
@@ -93,7 +100,7 @@ export default {
     })
     return {
       state,
-      closeModal: modalHandler.close(`#keepModal${props.keep.id}`),
+      closeModal() { modalHandler.close(`#keepModal${props.keep.id}`) },
       activeKeep: computed(() => {
         if (AppState.activeKeep.id) {
           return AppState.activeKeep
@@ -122,7 +129,7 @@ export default {
           logger.log(added)
           if (added) {
             await Pop.toast('Added', 'success', 'bottom-end', 1000, false)
-          } else { Pop.toast('Something went wrong', 'error') }
+          } else { Pop.toast('Something went wrong', 'error', 'bottom-end', 2000) }
         } catch (error) {
           logger.error(error)
           Pop.toast(error, 'error')
