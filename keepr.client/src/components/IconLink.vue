@@ -1,11 +1,11 @@
 <template>
-  <span
+  <a
     :style="cssProps"
     class="align-items-center holder mdi px-2 action"
     :class="[`mdi-${mdi}`, state.hover ? state.openClass : state.closedClass]"
     @mouseover="state.hover = true"
     @mouseleave="state.hover = false"
-  ><span class="inner-text"><slot /></span></span>
+  ><span class="inner-text"><slot /></span></a>
 </template>
 
 <script>
@@ -57,7 +57,7 @@ export default {
 }
 
 .holder{
-  display: flex;
+  display: inline-flex;
   font-size: 24px;
   width: 32px;
   max-width: max-content;
@@ -69,5 +69,6 @@ export default {
   transition: width 0.4s linear;
   width: 100%;
   max-width: max-content;
+  color: var(--light);
 }
 </style>
