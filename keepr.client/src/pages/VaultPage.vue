@@ -8,7 +8,7 @@
         {{ vault.name }} <PrivacyIndicator
           @mouseenter="state.isPrivate = !vault.isPrivate"
           @mouseleave="state.isPrivate = vault.isPrivate"
-          class="action"
+          class="action px-1"
           :is-private="state.isPrivate"
           title="Toggle Privacy"
           @click="togglePrivacy"
@@ -35,7 +35,7 @@
       <div class="col-12 card-columns" v-if="keeps.length > 0">
         <KeepCard v-for="k in keeps" :key="k.id" :keep="k" :vault-view="creatorMatch" />
       </div>
-      <div class="col-12" v-else>
+      <div class="col-12 d-flex align-items-center h-50" v-else>
         <h4><em>This Vault has no keeps... :(</em></h4>
       </div>
     </div>
