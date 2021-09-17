@@ -28,6 +28,9 @@
             <em v-if="!isMobile"> &nbsp;Delete Vault?</em>
           </IconLink>
         </h1>
+        <p class="f-18">
+          {{ vault.description }}
+        </p>
       </div>
       <div class="col-12">
         <button class="btn btn-info" @click="returnToProfile">

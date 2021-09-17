@@ -78,10 +78,11 @@ export default {
   max-width: max-content;
   overflow: hidden;
   word-wrap: normal;
+  transition: all 0.2s linear;
 }
 
 .holder:hover{
-  transition: width 0.4s linear;
+  transition: all 0.4s linear;
   width: 100%;
   max-width: max-content;
   color: var(--light);
