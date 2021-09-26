@@ -17,6 +17,10 @@ class KeepsService {
     }
   }
 
+  /**
+ *
+ * @param {string} id - Profile ID
+ */
   async getAllByProfile(id) {
     try {
       const res = await api.get(`/api/profiles/${id}/keeps`)
@@ -28,6 +32,10 @@ class KeepsService {
     }
   }
 
+  /**
+   *
+   * @param {number} id - Vault ID
+   */
   async getAllByVault(id) {
     try {
       const res = await api.get(`/api/vaults/${id}/keeps`)
@@ -40,10 +48,6 @@ class KeepsService {
   }
 
   async getOne(id) {
-    // const found = AppState.keeps.find(k => k.id === id)
-    // if (found) {
-    //   AppState.activeKeep = found
-    // }
     try {
       const res = await api.get('/api/keeps/' + id)
       logger.log(res.data)
@@ -54,6 +58,12 @@ class KeepsService {
     }
   }
 
+  /**
+   *
+   * @param {number} vaultId
+   * @param {number} keepId
+   * @returns {boolean} - success is true
+   */
   async addToVault(vaultId, keepId) {
     try {
       const newVK = {
@@ -71,6 +81,10 @@ class KeepsService {
     }
   }
 
+  /**
+   *
+   * @param {number} vkId - vaultKeep ID
+   */
   async removeFromVault(vkId) {
     try {
       const res = await api.delete('/api/vaultkeeps/' + vkId)
@@ -82,6 +96,10 @@ class KeepsService {
     }
   }
 
+  /**
+   *
+   * @param {Object<Keep>} keep
+   */
   async create(keep) {
     try {
       const res = await api.post('api/keeps/', keep)

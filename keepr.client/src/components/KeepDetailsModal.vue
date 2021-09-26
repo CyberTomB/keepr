@@ -122,8 +122,6 @@ export default {
         }
       },
       async addToVault() {
-        // TODO: write function
-        logger.log('Placeholder Test', state.vaultId)
         try {
           const added = await keepsService.addToVault(state.vaultId, props.keep.id)
           logger.log(added)
